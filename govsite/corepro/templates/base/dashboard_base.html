@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>{% block title %}{% endblock %}</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Bootstrap Template created by UxDT division, National Informatics Centre">
+      <meta name="keywords" content="HTML, Bootstrap, CSS, JS">
+      <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" />
+      <!-- Custom styles for this template -->
+      <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/base-responsive.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" />
+      <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+      <script src="{% static 'vendor/charts/chart.umd.min.js' %}"></script>
+      {% block css %}{% endblock %}
+      <style>
+         body {
+         background-color: #fff;
+         }
+         .b-leftmenu ul {
+         list-style: none;
+         margin: 0;
+         padding: 0;
+         }
+         .b-leftmenu ul li {
+         /* Sub Menu */
+         }
+         .b-leftmenu ul li a {
+         display: block;
+         background: #ebebeb;
+         padding: 10px 15px;
+         color: #333;
+         text-decoration: none;
+         -webkit-transition: 0.2s linear;
+         -moz-transition: 0.2s linear;
+         -ms-transition: 0.2s linear;
+         -o-transition: 0.2s linear;
+         transition: 0.2s linear;
+         }
+         .b-leftmenu ul li a:hover {
+         background: #f8f8f8;
+         color: #515151;
+         }
+         .b-leftmenu ul li a .fa {
+         width: 16px;
+         text-align: center;
+         margin-right: 5px;
+         float:right;
+         }
+         .b-leftmenu ul ul {
+         background-color:#ebebeb;
+         }
+         .b-leftmenu .sub-menu ul li a {
+         background: #f8f8f8;
+         border-left: 4px solid transparent;
+         padding: 10px 25px;
+         }
+         .b-leftmenu .sub-sub-menu ul li a {
+         padding: 10px 20px 10px 40px;
+         }
+         .b-leftmenu a.b-newpage:hover {
+         background: #ebebeb;
+         border-left: 4px solid #3498db;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="d-flex" id="wrapper">
+      <!-- Sidebar -->
+      <div class="dashboard-bgcolor border-end" id="sidebar-wrapper">
+         <div class="sidebar-heading text-center b-db-color" style="font-size: 24px">
+            <span class="fa-solid fa-gauge-high"></span> &nbsp;<span class="text-uppercase">Admin</span> 
+         </div>
+         <div class="list-group list-group-flush b-leftmenu">
+            <ul id="sortable-menu">
+               <li><a href='{% url "dashboard" %}' class="dashboard-bgcolor b-db-color border-bottom b-newpage">Dashboard</a></li>
+               <li class='sub-menu'>
+                  <a href='javascript:void(0)' class="dashboard-bgcolor border-bottom b-db-color b-newpage">
+                     Charts
+                     <div class='fa fa-caret-down right'></div>
+                  </a>
+                  <ul>
+                     <li><a class="b-newpage" href='{% url "barchart" %}'>Bar Charts</a></li>
+                     <li><a class="b-newpage" href='{% url "linechart" %}'>Line Charts</a></li>
+                     <li><a class="b-newpage" href='{% url "areachart" %}'>Area Charts</a></li>
+                     <li class='sub-sub-menu'>
+                        <a href='javascript:void(0)' class="b-newpage">
+                           Other Charts 
+                           <div class='fa fa-caret-down right'></div>
+                        </a>
+                        <ul>
+                           <li><a class="b-newpage" href='{% url "scatterchart" %}'>Scatter Chart</a></li>
+                           <li><a class="b-newpage" href='{% url "doughnut_piechart" %}'>Doughnut &amp; Pie Charts</a></li>
+                           <li><a class="b-newpage" href='{% url "polarareachart" %}'>Polar Area Chart</a></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+               <li><a href='{% url "table" %}' class="dashboard-bgcolor border-bottom b-newpage b-db-color">Tables</a></li>
+               <li><a href='{% url "forms" %}' class="dashboard-bgcolor border-bottom b-newpage b-db-color">Forms</a></li>
+               <li class='sub-menu'>
+                  <a href='javascript:void(0)' class="dashboard-bgcolor border-bottom b-db-color b-newpage">
+                     UI Elements
+                     <div class='fa fa-caret-down right'></div>
+                  </a>
+                  <ul>
+                     <li><a href='{% url "typography" %}' class="b-newpage">Typography</a></li>
+                     <li><a href='{% url "buttons" %}' class="b-newpage">Buttons</a></li>
+                     <li><a href='{% url "cards" %}' class="b-newpage">Cards</a></li>
+                     <li><a href='{% url "icons" %}' class="b-newpage">Icons</a></li>
+                  </ul>
+               </li>
+               <li class='sub-menu'>
+                  <a href='javascript:void(0)' class="dashboard-bgcolor border-bottom b-db-color b-newpage">
+                     Multi-level Dropdown
+                     <div class='fa fa-caret-down right'></div>
+                  </a>
+                  <ul>
+                     <li><a href='javascript:void(0);' class="b-newpage">Second Level Item</a></li>
+                     <li><a href='javascript:void(0)' class="b-newpage">Second Level Item</a></li>
+                     <li class='sub-sub-menu'>
+                        <a href='javascript:void(0);' class="b-newpage">
+                           Third Level 
+                           <div class='fa fa-caret-down right'></div>
+                        </a>
+                        <ul>
+                           <li><a href='javascript:void(0)' class="b-newpage">Third Level Item</a></li>
+                           <li><a href='javascript:void(0);' class="b-newpage">Third Level Item</a></li>
+                           <li><a href='javascript:void(0)' class="b-newpage">Third Level Item</a></li>
+                        </ul>
+                     </li>
+                  </ul>
+               </li>
+            </ul>
+         </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+         <nav class="navbar navbar-expand-lg navbar-light dashboard-bgcolor border-bottom px-3">
+            <button class="btn b-db-color" id="menu-toggle">
+            <span style="display:none;">Menu</span>
+            <span class="fas fa-bars" style="font-size: 1.4rem"></span>
+            </button>
+            <!-- Online users -->
+            <div class="d-inline-block px-4 py-2 dropdown">
+               <div class="dropdown-toggle" data-bs-toggle="dropdown" style="cursor: pointer;">
+                  <span class="fas fa-users" style="font-size: 20px;"></span>
+               </div>
+               <div class="dropdown-menu b-dropmenu-db">
+                  <a class="dropdown-item" href="#">User action</a>
+                  <a class="dropdown-item" href="#">Another user action</a>
+                  <a class="dropdown-item" href="#">Another user action</a>
+                  <a class="dropdown-item" href="#">Another user action</a>
+               </div>
+            </div>
+            <button class="navbar-toggler b-dropmenubtn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="far fa-caret-square-down" style="font-size: 30px; color: #FFF"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                  <li class="nav-item">
+                     <a class="nav-link b-db-color" href="#">Notification</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link b-db-color" href="#">Inbox</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle b-db-color" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Profile
+                     </a>
+                     <div class="dropdown-menu dropdown-menu-end text-center b-dropmenu-db" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#signout-modal">Sign Out</a>
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </nav>
+         {% block content %}{% endblock %}
+      <!-- /#wrapper -->
+      <!-- Bootstrap core JavaScript -->
+      <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+      <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'js/popper.min.js' %}"></script>
+      <script src="{% static 'vendor/charts/moment.min.js' %}"></script>
+      <script src="{% static 'js/jquery.slicknav.min.js' %}"></script>
+      <script src="{% static 'js/dashboard.js' %}"></script>
+      <!-- Menu Toggle Script -->
+      <script>
+         $("#menu-toggle").click(function(e) {
+           e.preventDefault();
+           $("#wrapper").toggleClass("toggled");
+         });
+      </script>
+      <script>
+         $(document).ready(function(){ 
+           $('#backtotop').click(function(){ 
+               $("html, body").animate({ scrollTop: 0 }, 600); 
+               return false; 
+           }); 
+         });
+      </script>
+      <script>
+         $('.sub-menu ul').hide();
+         $('.sub-sub-menu ul').hide();
+         $(".sub-menu a").click(function () {
+         $(this).parent(".sub-menu").children("ul").slideToggle("100");
+         $(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
+         });
+         
+         $(".sub-sub-menu a").click(function () {
+         $(this).parent(".sub-sub-menu").children("ul").slideToggle("100");
+         $(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
+         });
+      </script>
+      <!-- Signup Modal -->
+      <div class="modal fade" id="signout-modal">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <!-- Modal Header -->
+               <div class="modal-header text-center d-block p-5 border-bottom-0">
+                  <h3 class="modal-title">Sign Out?</h3>
+                  <button type="button" class="btn-close close position-absolute" data-bs-dismiss="modal" aria-label="Close" style="right: 20px; top: 20px;"></button>
+               </div>
+               <!-- Modal body -->
+               <div class="modal-body">
+                  <p class="text-center">Are you sure you want to Sign Out?</p>
+                  <div class="text-center py-4">
+                     <form action="{% url 'index' %}">
+                        <button type="submit" class="btn btn-primary b-btn mx-3">Sign Out</button>
+                        <button class="btn btn-secondary mx-3" data-bs-dismiss="modal">Cancel</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="{% static 'vendor/jquery-ui/jquery-ui.min.js' %}"></script>
+      <script>
+         $( function() {
+              $( "#sortable-menu").sortable();
+              $( "#sortable-menu").disableSelection();
+         
+              $( "#sortable-cards").sortable();
+              $( "#sortable-cards").disableSelection();
+            });
+      </script>
+      <script>
+         $(function() {
+           $("#one-item-row").on("click", function() {
+           	$(".b-customize").addClass("col-lg-12", 300);
+           	$(".b-customize").removeClass("col-lg-4", 300);
+           	$(".b-customize").removeClass("col-lg-6", 300);
+               
+           });
+         
+           $("#two-item-row").on("click", function() {
+           	$(".b-customize").addClass("col-lg-6", 300);
+           	$(".b-customize").removeClass("col-lg-4", 300);
+           	$(".b-customize").removeClass("col-lg-12", 300);
+               
+           });
+         
+           $("#three-item-row").on("click", function() {
+           	$(".b-customize").addClass("col-lg-4", 300);
+           	$(".b-customize").removeClass("col-lg-6", 300);
+           	$(".b-customize").removeClass("col-lg-12", 300);
+               
+           });
+         
+         });
+      </script>
+   </body>
+</html>

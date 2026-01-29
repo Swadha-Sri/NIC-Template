@@ -1,0 +1,99 @@
+{% extends 'base/public_base.html' %}
+{% load static %}
+{% block title %}Bootstrap Security Template | Inner Page{% endblock %}
+{% block content %}
+      <!-- Breadcrumb -->
+      <div class="bg-light">
+         <div class="container">
+            <ul class="breadcrumb bg-light ps-0">
+               <li><a href="{% url 'index' %}">Home</a></li>
+               <li>Inner Page</li>
+            </ul>
+         </div>
+      </div>
+      <!-- Inner body -->
+      <div class="mt-4" id="b-inner-sec">
+         <div class="container">
+            <h2 class="">Main Heading</h2>
+            <h3 class="text-center mt-5"><span>Sub Heading</span></h3>
+            <p>Description of the heading 1 goes here. An informative text section that outlines the work portfolio of the ministry and the initiatives/ schemes and other useful purpose that the ministry website serves. Description of the main heading goes here. An informative text section that outlines the work portfolio of the ministry and the initiatives/ schemes and other useful purpose that the ministry website serves. Description of the main heading goes here. An informative text section that outlines the work portfolio of the ministry and the initiatives/ schemes and other useful purpose that the ministry website serves.</p>
+            <p>Description of the heading 1 goes here. An informative text section that outlines the work portfolio of the ministry and the initiatives/ schemes and other useful purpose that the ministry website serves. Description of the main heading goes here. An informative text section that outlines the work portfolio of the ministry and the initiatives/ schemes and other useful purpose that the ministry website serves. Description of the main heading goes here. An informative text section that outlines the work portfolio of the ministry and the initiatives/ schemes and other useful purpose that the ministry website serves.</p>
+         </div>
+      </div>
+      <div class="mb-5">
+         <div class="container">
+            <!-- First Section -->
+            <div class="mt-5">
+               <h3 class="text-center"><span>Sub Heading</span></h3>
+               <div class="text-center float-none float-sm-end ps-sm-4 pb-3">
+                  <img src="{% static 'images/inner-img/img1.jpg' %}" width="225" height="150" alt="First Example picture">
+               </div>
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+               <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <!-- Second Section -->
+            <div class="mt-5">
+               <h3 class="text-center"><span>Sub Heading</span></h3>
+               <div class="text-center float-none float-sm-start pe-sm-4 pb-3">
+                  <img src="{% static 'images/inner-img/img2.jpg' %}" width="225" height="150" alt="Second Example picture">
+               </div>
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+               <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <!-- Table Section -->
+            <div class="mt-5">
+               <h3 class="text-center">Table</h3>
+               <div class="table-responsive">
+                  <table class="table table-bordered table-hover">
+                     <thead class="table-dark">
+                        <tr>
+                           <th>Sno.</th>
+                           <th>Firstname</th>
+                           <th>Lastname</th>
+                           <th>Email</th>
+                           <th>Phone no. (Office)</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>1.</td>
+                           <td>Vikas</td>
+                           <td>Sharma</td>
+                           <td>vikas.sharma@mail.in</td>
+                           <td>011-26793735</td>
+                        </tr>
+                        <tr>
+                           <td>2.</td>
+                           <td>Dhruv</td>
+                           <td>Verma</td>
+                           <td>dhruv.verma@mail.in</td>
+                           <td>011-26793736</td>
+                        </tr>
+                        <tr>
+                           <td>3.</td>
+                           <td>Shalini</td>
+                           <td>Gupta</td>
+                           <td>shalini.gupta@mail.in</td>
+                           <td>011-26793737</td>
+                        </tr>
+                        <tr>
+                           <td>4.</td>
+                           <td>Preeti</td>
+                           <td>Aggarwal</td>
+                           <td>preeti.aggarwal@mail.in</td>
+                           <td>011-26793738</td>
+                        </tr>
+                        <tr>
+                           <td>5.</td>
+                           <td>Neha</td>
+                           <td>Gupta</td>
+                           <td>neha.gupta@mail.in</td>
+                           <td>011-26793739</td>
+                        </tr>
+                     </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>
+{% endblock %}

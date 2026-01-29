@@ -1,0 +1,27 @@
+{% extends "base/dashboard_base.html" %}
+{% block title %}Bootstrap Application Template | Polar Area Chart{% endblock %}
+{% block content %}
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+               <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+               <li>Charts</li>
+               <li>Other Charts</li>
+               <li>Polar Area Chart</li>
+            </ul>
+            <div class="container-fluid">
+               <h3 class="mt-4" style="font-size:32px;">Polar Area Chart</h3>
+               <p>Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.</p>
+               <p>This type of chart is often useful when we want to show a comparison data similar to a pie chart, but also show a scale of values for context.</p>
+               <p>Polar area chart is shown below:</p>
+               <!-- Charts -->
+               <div class="row">
+                  <div class="col-md-12 p-4">
+                     <h4 class="text-center">Polar Area Chart</h4>
+                     <canvas id="polarAreaChart" width="400" height="310"></canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /#page-content-wrapper -->
+      </div>
+      {% endblock %}

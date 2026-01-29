@@ -1,0 +1,363 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+    <title>{% block title %} {% endblock %}</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Bootstrap Template created by UxDT division, National Informatics Centre">
+      <meta name="keywords" content="HTML, Bootstrap, CSS, JS">
+      <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" />
+      <!-- Custom styles for this template -->
+	  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/base-responsive.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
+      <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" />
+      <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
+      <script src="{% static 'vendor/charts/chart.umd.min.js' %}"></script>
+      {% block css %} {% endblock %}
+   </head>
+   <body>
+      <div style="display:none;">
+         <h1>Heading1</h1>
+         <h2>Heading2</h2>
+      </div>
+      <!-- Accessibility -->
+		<div class="container d-flex clearfix" id="b-accessibility">
+		  <div class="b-ministryname">
+			<div class="text-end d-inline-block fw-bold b-acc-goi pe-sm-2">
+			  <span>भारत सरकार</span>
+			</div>
+			<div class="d-inline-block fw-bold b-acc-ministry ps-sm-2">
+			  <span>Government of India</span>
+			</div>
+		  </div>
+
+		  <div class="ms-auto d-flex b-acc-icons">
+			<div class="align-self-center">
+
+			  <!-- Site Search Dropdown -->
+			  <div class="d-inline-block h-100 px-3 dropdown">
+				<img src="{% static 'images/icons/ico-site-search.png' %}"
+					 alt="site search icon"
+					 title="Site search"
+					 class="dropdown-toggle"
+					 data-bs-toggle="dropdown"
+					 style="cursor: pointer;">
+				<div class="dropdown-menu p-2 border-0 b-search">
+				  <label for="site-search" class="visually-hidden">Site search</label>
+				  <form class="d-inline-block" role="search">
+				  <div class="input-group" style="width: 200px;">
+					<input type="text" class="form-control b-site-search" id="site-search"
+						   placeholder="Search" aria-label="Search" style="border-radius: 0;">
+					<button class="btn btn-dark" type="submit" style="border-radius: 0;">
+					  <i class="fas fa-search"></i>
+					</button>
+				  </div>
+				</form>
+				</div>
+			  </div>
+			  <!-- Social Links Dropdown -->
+			  <div class="d-inline-block h-100 px-3 dropdown">
+				<img src="{% static 'images/icons/ico-social.png' %}"
+					 alt="social sites links"
+					 title="Social links"
+					 class="dropdown-toggle"
+					 data-bs-toggle="dropdown"
+					 style="cursor: pointer;">
+				<div class="dropdown-menu b-social-dropdown" style="min-width: 50px; width: 50px">
+				  <a href="#" class="dropdown-item"><span class="fab fa-facebook-f"></span></a>
+				  <a href="#" class="dropdown-item"><span class="fab fa-twitter"></span></a>
+				  <a href="#" class="dropdown-item"><span class="fab fa-youtube"></span></a>
+				</div>
+			  </div>
+
+			  <!-- Skip to Main -->
+			  <div class="d-inline-block h-100 px-3">
+				<a href="#b-homedb" class="align-self-center b-skiptomain" title="Skip to main content">
+				  <img src="{% static 'images/icons/ico-skip.png' %}" alt="skip to main content icon">
+				</a>
+			  </div>
+
+			  <!-- Accessibility Dropdown -->
+			  <div class="d-inline-block h-100 px-3 dropdown">
+				<img src="{% static 'images/icons/ico-accessibility.png' %}"
+					 alt="accessibility icon"
+					 title="Accessibility Dropdown"
+					 class="dropdown-toggle"
+					 data-bs-toggle="dropdown"
+					 style="cursor: pointer;">
+				<div class="dropdown-menu b-accessibility-dropdown" style="min-width: 50px; width: 50px">
+				  <a href="#" class="dropdown-item" title="Increase font size"><span class="fw-bold">A<sup>+</sup></span></a>
+				  <a href="#" class="dropdown-item" title="Reset font size"><span class="fw-bold">A</span></a>
+				  <a href="#" class="dropdown-item" title="Decrease font size"><span class="fw-bold">A<sup>-</sup></span></a>
+				  <a href="#" class="dropdown-item bg-dark" title="High contrast"><span class="fw-bold text-white">A</span></a>
+				</div>
+			  </div>
+
+			  <!-- Sitemap -->
+			  <div class="d-inline-block h-100 px-3">
+				<a href="{% url 'sitemap' %}" title="Sitemap">
+				  <img src="{% static 'images/icons/ico-sitemap.png' %}" alt="sitemap icon">
+				</a>
+			  </div>
+
+			</div>
+		  </div>
+		</div>
+
+      <!-- Header -->
+      <div class="container clearfix" id="b-header">
+		<div class="float-start d-flex h-100">
+		  <img src="{% static 'images/emblem-dark.png' %}" class="align-self-center b-emblem-image" alt="National Emblem of India">
+		</div>
+		<div class="float-start d-flex h-100">
+		  <h2 class="align-self-center ps-3 b-appname">
+			<span class="fw-bold">Bootstrap Security Template</span> <br>
+			<span class="b-appfullname">(Tagline goes here)</span>
+		  </h2>
+		</div>
+	  </div>
+      <style type="text/css">
+         .bar1, .bar2, .bar3 {
+         width: 25px;
+         height: 3px;
+         background-color: #fff;
+         margin: 5px 0;
+         transition: 0.4s;
+         }
+         .change .bar1 {
+         -webkit-transform: rotate(-45deg) translate(-5px, 5px);
+         transform: rotate(-45deg) translate(-5px, 5px);
+         }
+         .change .bar2 {opacity: 0;}
+         .change .bar3 {
+         -webkit-transform: rotate(45deg) translate(-5px, -7px);
+         transform: rotate(45deg) translate(-5px, -7px);
+         }
+      </style>
+      
+      <!-- Global Navigation -->
+      <div class="globalnav-bg">
+         <div class="container">
+            <nav class="navbar navbar-expand-sm navbar-dark px-0">
+               <div class="d-flex w-100 b-nav-mobile">
+                  <button class="navbar-toggler align-self-center b-btn-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" onclick="myFunction(this)">
+                     <span style="display:none;">Menu</span>
+                     <div>
+                        <div class="bar1"></div>
+                        <div class="bar2"></div>
+                        <div class="bar3"></div>
+                     </div>
+                  </button>
+                  <button class="btn btn-outline-light align-self-center ml-auto b-btn-login" type="button" data-bs-toggle="modal" data-bs-target="#login-modal">
+                     Log In
+                  </button> 
+               </div>
+               <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                  <ul class="navbar-nav main-menu d-flex">
+                     <li class="nav-item d-block"> <a href="{% url 'index' %}" class="nav-link active">Home</a> </li>
+                     <li class="nav-item d-block"> <a href="{% url 'inner' %}" class="nav-link">Advisories</a></li>
+                     <li class="nav-item d-block"> <a href="{% url 'contactus' %}" class="nav-link">Contact Us</a></li>
+                  </ul>
+               </div>
+            </nav>
+         </div>
+      </div>
+      <script>
+         function myFunction(x) {
+           x.classList.toggle("change");
+         }
+      </script>
+      <!-- Page Content -->
+      {% block content %}{% endblock %}
+      
+      <!----------- Footer ------------>
+      <div class="footer-bs">
+         <footer class="container">
+            <div class="row">
+               <div class="row col-md-7 col-sm-12 footer-nav">
+                  <p class="col-md-12">Quick Links —</p>
+                  <div class="col-sm-6">
+                     <ul class="list">
+                        <li><a href="{% url 'inner' %}">Policies</a></li>
+                        <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+                        <li><a href="{% url 'inner' %}">Guidelines</a></li>
+                     </ul>
+                  </div>
+                  <div class="col-sm-6">
+                     <ul class="list">
+                        <li data-bs-toggle="modal" data-bs-target="#feedback-modal"><a href="javascript:void(0)">Feedback</a></li>
+                        <li><a href="{% url 'inner' %}">Help Centre</a></li>
+                        <li><a href="javascript:void(0);">About Us</a></li>
+                     </ul>
+                  </div>
+               </div>
+               <div class="col-md-3 col-sm-8 footer-social d-flex">
+                  <div class="d-inline-block align-self-center">
+                     <p class="bg-light"><img src="{% static 'images/NIC.png' %}" alt="NIC logo"></p>
+                     <p class="bg-light mb-0"><img src="{% static 'images/digital-india.png' %}" alt="digital india logo"></p>
+                  </div>
+               </div>
+               <div class="col-md-2 col-sm-4 footer-ns d-flex">
+                  <a class="backtotop align-self-center d-flex text-center text-decoration-none text-white" title="Back to top" href="#b-accessibility">
+                  <span style="display:none;">Back to top</span>
+                  <span style="font-size: 24px;" class="fas fa-angle-up align-self-center mx-auto"></span>
+                  </a>
+               </div>
+            </div>
+            <div class="text-center mt-5 b-footer-credit" style="color: #000!important">
+               This site is designed and hosted by <a class="fw-bold" href="https://www.nic.in/">National Informatics Centre</a>, <a class="fw-bold" href="https://meity.gov.in/">Ministry of Electronics and IT</a>, <a class="fw-bold" href="https://www.india.gov.in/">Govt. of India.</a>
+            </div>
+         </footer>
+      </div>
+      <!-- Login Modal -->
+      <div class="modal fade" id="login-modal">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <!-- Modal Header -->
+               <div class="modal-header text-center d-block p-5 border-bottom-0">
+                  <h2 class="modal-title">Log In</h2>
+				  <button type="button" class="btn-close close position-absolute" data-bs-dismiss="modal" aria-label="Close" style="right: 20px; top: 20px;"></button>
+               </div>
+               <!-- Modal body -->
+               <div class="modal-body">
+                  <form action="{% url 'dashboard' %}" autocomplete="off" method="POST">
+                     {% csrf_token %}
+                     <div class="form-group mb-3">
+                        <label for="login-email" class="mb-2">Email:</label>
+                        <input type="email" class="form-control" id="login-email" placeholder="Enter email" name="login-email">
+                     </div>
+                     <div class="form-group mb-3">
+                        <label for="login-pwd" class="mb-2">Password:</label>
+                        <input type="password" class="form-control" id="login-pwd" placeholder="Enter password" name="login-pwd">
+                     </div>
+                     <div class="form-group form-check mb-3">
+                        <label class="form-check-label" for="login-rem">
+                        <input class="form-check-input" type="checkbox" id="login-rem" name="remember"> Remember me
+                        </label>
+                     </div>
+                     <p class="text-end b-notreg">Don't have an account? <a href="" data-bs-toggle="modal" data-bs-target="#signup-modal" data-bs-dismiss="modal">Sign Up</a></p>
+                     <div class="text-center py-4">
+                        <button type="submit" class="btn btn-primary b-btn">Log In</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Signup Modal -->
+      <div class="modal fade" id="signup-modal">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <!-- Modal Header -->
+               <div class="modal-header text-center d-block p-5 border-bottom-0">
+                  <h2 class="modal-title">Sign Up</h2>
+				  <button type="button" class="btn-close close position-absolute" data-bs-dismiss="modal" aria-label="Close" style="right: 20px; top: 20px;"></button>
+               </div>
+               <!-- Modal body -->
+               <div class="modal-body">
+                  <form action="" autocomplete="off">
+                     {% csrf_token %}
+                     <div class="form-group mb-3">
+                        <label for="signup-name" class="mb-2">Name:</label>
+                        <input type="text" class="form-control" id="signup-name" placeholder="Enter name" name="signup-name">
+                     </div>
+                     <div class="form-group mb-3">
+                        <label for="signup-email" class="mb-2">Email:</label>
+                        <input type="email" class="form-control" id="signup-email" placeholder="Enter email" name="signup-email">
+                     </div>
+                     <div class="form-group mb-3">
+                        <label for="signup-mobile" class="mb-2">Mobile no.:</label>
+                        <input type="number" class="form-control" id="signup-mobile" placeholder="Enter mobile no." name="signup-mobile">
+                     </div>
+                     <div class="form-group mb-3">
+                        <label for="signup-pwd" class="mb-2">Password:</label>
+                        <input type="password" class="form-control" id="signup-pwd" placeholder="Enter password" name="signup-pwd">
+                     </div>
+                     <p class="text-end b-already-reg">Already Registered? <a href="" data-bs-toggle="modal" data-bs-target="#login-modal" data-bs-dismiss="modal">Log In</a></p>
+                     <div class="text-center py-4">
+                        <button type="submit" class="btn btn-primary b-btn">Sign Up</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Feedback Modal -->
+      <div class="modal fade" id="feedback-modal">
+         <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+               <!-- Modal Header -->
+               <div class="modal-header text-center d-block p-5 border-bottom-0">
+                  <h2 class="modal-title">Feedback</h2>
+                  <button type="button" class="btn-close close position-absolute" data-bs-dismiss="modal" aria-label="Close" style="right: 20px; top: 20px;"></button>
+               </div>
+               <!-- Modal body -->
+               <div class="modal-body">
+                  <form action="" autocomplete="off" method="POST">
+                     {% csrf_token %}
+                     <div class="form-group mb-3">
+                        <label for="fdbk-name">Name:</label>
+                        <input type="text" class="form-control" id="fdbk-name" placeholder="Enter name" name="fdbk-name">
+                     </div>
+                     <div class="form-group mb-3">
+                        <label for="fdbk-email" class="mb-2">Email:</label>
+                        <input type="email" class="form-control" id="fdbk-email" placeholder="Enter email" name="fdbk-email">
+                     </div>
+                     <div class="form-group mb-3">
+                        <label for="fdbk-subject" class="mb-2">Subject:</label>
+                        <select class="form-control" id="fdbk-subject" name="fdbk-subject">
+                           <option>Application issue</option>
+                           <option>Design issue</option>
+                           <option>Any other</option>
+                        </select>
+                     </div>
+                     <div class="form-group mb-3">
+                        <label for="fdbk-comment" class="mb-2">Comment:</label>
+                        <textarea class="form-control" id="fdbk-comment" placeholder="Enter feedback" name="fdbk-comment" rows="5" style="resize: none;"></textarea>
+                     </div>
+                     <div class="text-center py-4">
+                        <button type="submit" class="btn btn-primary b-btn">Submit</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Bootstrap core JavaScript -->
+      <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+      <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+	  <script src="{% static 'js/popper.min.js' %}"></script>
+	  <script src="{% static 'vendor/charts/moment.min.js' %}"></script>
+      <script src="{% static 'js/jquery.slicknav.min.js' %}"></script>
+	  <script src="{% static 'js/dashboard.js' %}"></script>
+      <!-- Menu Toggle Script -->
+      <script>
+         $("#menu-toggle").click(function(e) {
+           e.preventDefault();
+           $("#wrapper").toggleClass("toggled");
+         });
+      </script>
+      <script>
+         $(document).ready(function() {
+         	$(".b-navdropdown-click").click(function() {
+         		if($(".b-navdropdown").hasClass("hide")) {
+         			$(".b-navdropdown").addClass("show");
+         			$(".b-navdropdown").removeClass("hide");
+         			// $(".b-icon-up").show();
+         			// $(".b-icon-down").hide();
+         		} 
+         		else if($(".b-navdropdown").hasClass("show")) {
+         			$(".b-navdropdown").addClass("hide");
+         			$(".b-navdropdown").removeClass("show");
+         			// $(".b-icon-down").show();
+         			// $(".b-icon-up").hide();
+         		}
+         });
+         });
+      </script>
+      <script src="{% static 'vendor/jquery-ui/jquery-ui.min.js' %}"></script>
+      {% block js %} {% endblock %}
+   </body>
+</html>

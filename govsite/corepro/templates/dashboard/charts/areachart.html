@@ -1,0 +1,45 @@
+{% extends "base/dashboard_base.html" %}
+{% block title %}Bootstrap Application Template | Area Charts{% endblock %}
+{% block content %}
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+               <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+               <li>Charts</li>
+               <li>Area Charts</li>
+            </ul>
+            <div class="container-fluid">
+               <h3 class="mt-4" style="font-size:32px;">Area Charts</h3>
+               <p>Both line and radar charts support a <code>fill</code> option on the dataset object which can be used to create area between two datasets or a dataset and a boundary, i.e. the scale <code>origin</code>, <code>start</code> or <code>end</code>. They are commonly used to showcase data that depicts a time-series relationship.</p>
+               <p>There are various types of Area Charts, some of them are shown below:</p>
+               <!-- Charts -->
+               <div class="row">
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Not-fill Area Chart</h4>
+                     <canvas id="fillFalseAreaChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Fill-origin Area Chart</h4>
+                     <canvas id="fillOriginAreaChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Fill-start Area Chart</h4>
+                     <canvas id="fillStartAreaChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Fill-end Area Chart</h4>
+                     <canvas id="fillEndAreaChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Datasets Area Chart</h4>
+                     <canvas id="datasetsAreaChart" width="400" height="400"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Radar Area Chart</h4>
+                     <canvas id="radarAreaChart" width="400" height="400"></canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /#page-content-wrapper -->
+      </div>
+      {% endblock %}

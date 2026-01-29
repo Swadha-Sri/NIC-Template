@@ -1,0 +1,32 @@
+{% extends "base/dashboard_base.html" %}
+{% block title %}Bootstrap Application Template | Doughnut &amp; Pie Charts{% endblock %}
+{% block content %}
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+               <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+               <li>Charts</li>
+               <li>Other Charts</li>
+               <li>Doughnut &amp; Pie Charts</li>
+            </ul>
+            <div class="container-fluid">
+               <h3 class="mt-4" style="font-size:32px;">Doughnut &amp; Pie Charts</h3>
+               <p>Pie and doughnut charts are probably the most commonly used charts. They are divided into segments, the arc of each segment shows the proportional value of each piece of data.</p>
+               <p>They are excellent at showing the relational proportions between data and are generally used to show percentage or proportional data.</p>
+               <p>Pie and doughnut charts are effectively the same class in Chart.js, but have one different default value - their <code>cutoutPercentage</code>. This equates what percentage of the inner should be cut out. This defaults to <code>0</code> for pie charts, and <code>50</code> for doughnuts.</p>
+               <p>Doughnut &amp; Pie charts are shown below:</p>
+               <!-- Charts -->
+               <div class="row">
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Doughnut Chart</h4>
+                     <canvas id="doughnutChart" width="400" height="400"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Pie Chart</h4>
+                     <canvas id="pieChart" width="400" height="400"></canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /#page-content-wrapper -->
+      </div>
+{% endblock %}

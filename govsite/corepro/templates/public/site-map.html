@@ -1,0 +1,46 @@
+{% extends 'base/public_base.html' %}
+{% block title %}Bootstrap Security Template | Sitemap{% endblock %}
+{% block content %}
+      <!-- Breadcrumb -->
+      <div class="bg-light">
+         <div class="container">
+            <ul class="breadcrumb bg-light ps-0">
+               <li><a href="{% url 'index' %}">Home</a></li>
+               <li>Sitemap</li>
+            </ul>
+         </div>
+      </div>
+      <!-- Inner body -->
+      <div class="mt-4 mb-5" id="b-sitemap">
+         <div class="container">
+            <h3 class="mt-5"><span>Sitemap</span></h3>
+            <ul class="">
+               <li><a href="{% url 'index' %}">Home</a></li>
+               <li><a href="{% url 'inner' %}">Advisories</a></li>
+               <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+               <li>
+                  <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login-modal">Dashboard</a>
+                  <ul>
+                     <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#login-modal">Charts</a></li>
+                     <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login-modal">Tables</a></li>
+                     <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#login-modal">Forms</a></li>
+                     <li>
+                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login-modal">UI Elements</a>
+                        <ul>
+                           <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#login-modal">Typography</a></li>
+                           <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login-modal">Buttons</a></li>
+                           <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#login-modal">Cards</a></li>
+                           <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#login-modal">Icons</a></li>
+                        </ul>
+                     </li>
+                     <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#login-modal">Multi-level Dropdown</a></li>
+                  </ul>
+               </li>
+               <li><a href="{% url 'inner' %}">Help</a></li>
+               <li><a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#feedback-modal">Feedback</a></li>
+               <li><a href="{% url 'inner' %}">Terms &amp; Conditions</a></li>
+               <li><a href="javascript:void(0);">Privacy Policy</a></li>
+            </ul>
+         </div>
+      </div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base/public_base.html' %}
+{% block title %}Bootstrap Application Template | Typography{% endblock %}
+{% block content %}
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+               <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+               <li>UI Elements</li>
+               <li>Typography</li>
+            </ul>
+            <div class="container-fluid">
+               <h3 class="mt-4" style="font-size:32px;">Typography</h3>
+               <p>Bootstrap 4 uses a default <code>font-size</code> of 16px, and its <code>line-height</code> is 1.5.</p>
+               <p>The default <code>font-family</code> is "Helvetica Neue", Helvetica, Arial, sans-serif.</p>
+               <p>In addition, all <code>&lt;p&gt;</code> elements have <code>margin-top: 0</code> and <code>margin-bottom: 1rem</code> (16px by default).</p>
+               <!-- Typography -->
+               <div class="row">
+                  <div class="col-md-12 py-4 px-5">
+                     <h1>h1. Bootstrap heading</h1>
+                     <h2>h2. Bootstrap heading</h2>
+                     <h3>h3. Bootstrap heading</h3>
+                     <h4>h4. Bootstrap heading</h4>
+                     <h5>h5. Bootstrap heading</h5>
+                     <h6>h6. Bootstrap heading</h6>
+                  </div>
+                  <div class="col-md-12 py-4 px-5">
+                     <h2>
+                        Fancy display heading
+                        <small class="text-muted">With faded secondary text</small>
+                     </h2>
+                  </div>
+                  <div class="col-md-12 py-4 px-5">
+                     <p>This is how a normal paragraph looks like in Bootstrap.</p>
+                     <p class="lead">This is how a paragraph stands out in Bootstrap.</p>
+                  </div>
+                  <div class="col-md-12 py-4 px-5">
+                     <h3>Styled texts</h3>
+                     <div>
+                        <p><strong>This is bold text</strong></p>
+                        <p><code>This is computer code</code></p>
+                        <p><em>This is emphasized text</em></p>
+                        <p><em>This is italic text</em></p>
+                        <p><mark>This is highlighted text</mark></p>
+                        <p><small>This is small text</small></p>
+                        <p><strong>This is strongly emphasized text</strong></p>
+                        <p>This is <sub>subscript</sub> and <sup>superscript</sup></p>
+                        <p><ins>This text is inserted to the document</ins></p>
+                        <p><del>This text is deleted from the document</del></p>
+                     </div>
+                  </div>
+                  <div class="col-md-12 py-4 px-5">
+                     <p class="text-primary">Primary: Please read the instructions carefully before proceeding.</p>
+                     <p class="text-secondary">Secondary: This is featured has been removed from the latest version.</p>
+                     <p class="text-success">Success: Your message has been sent successfully.</p>
+                     <p class="text-info">Info: You must agree with the terms and conditions to complete the sign up process.</p>
+                     <p class="text-warning bg-dark">Warning: There was a problem with your network connection.</p>
+                     <p class="text-danger">Danger: An error has been occurred while submitting your data.</p>
+                     <p class="text-muted">Muted: This paragraph of text is grayed out.</p>
+                  </div>
+                  <div class="col-md-12 py-4 px-5">
+                     <figure>
+                        <blockquote class="blockquote">
+                           <p>A well-known quote, contained in a blockquote element.</p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer">
+                           Someone famous in <cite title="Source Title">Source Title</cite>
+                        </figcaption>
+                     </figure>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /#page-content-wrapper -->
+      </div>
+{% endblock %}

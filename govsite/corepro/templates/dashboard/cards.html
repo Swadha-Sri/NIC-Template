@@ -1,0 +1,203 @@
+{% extends 'base/public_base.html' %}
+{% block title %}Bootstrap Application Template | Cards{% endblock %}
+{% block content %}
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+               <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+               <li>UI Elements</li>
+               <li>Cards</li>
+            </ul>
+            <div class="container-fluid">
+               <h3 class="mt-4" style="font-size:32px;">Cards</h3>
+               <p>A card is a new flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
+               <p>Different card components are shown below:</p>
+               <!-- Charts -->
+               <div class="row">
+                  <div class="col-md-12 py-4 px-sm-5">
+                     <h4>Basic Card</h4>
+                     <div class="m-sm-3">
+                        <div class="card" style="width: 300px;">
+                           <img src="{% static 'images/card-profile.png' %}" class="card-img-top" alt="...">
+                           <div class="card-body text-center">
+                              <h5 class="card-title">Manish Kumar</h5>
+                              <p class="card-text">Manish is a freelance web designer and developer based in Delhi. He is specialized in HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
+                              <a href="#" class="btn btn-primary">View Profile</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12 py-4 px-sm-5">
+                     <h4>Card with header and Footer</h4>
+                     <div class="m-sm-3">
+                        <div class="card text-center" style="width: 300px;">
+                           <div class="card-header">Featured</div>
+                           <div class="card-body">
+                              <h5 class="card-title">Heading goes here</h5>
+                              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante.</p>
+                              <a href="#" class="btn btn-primary">Know more</a>
+                           </div>
+                           <div class="card-footer text-muted">2 days ago</div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12 py-4 px-sm-5">
+                     <h4>Placing List Groups within Card</h4>
+                     <div class="m-sm-3">
+                        <div class="card" style="width: 300px;">
+                           <div class="card-header">Featured</div>
+                           <ul class="list-group list-group-flush">
+                              <li class="list-group-item">HTML5</li>
+                              <li class="list-group-item">CSS 3</li>
+                              <li class="list-group-item">Java Script</li>
+                           </ul>
+                           <div class="card-body">
+                              <a href="#" class="card-link">Add More</a>
+                              <a href="#" class="card-link float-right">Share</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12 py-4 px-sm-5">
+                     <h4>Customizing the Card Background</h4>
+                     <div class="row">
+                        <div class="col-sm-6">
+                           <div class="card text-white bg-primary mb-4">
+                              <div class="card-body">
+                                 <h5 class="card-title">Primary card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card text-white bg-secondary mb-4">
+                              <div class="card-body">
+                                 <h5 class="card-title">Secondary card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card text-white bg-success mb-4">
+                              <div class="card-body">
+                                 <h5 class="card-title">Success card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card text-white bg-danger mb-4">
+                              <div class="card-body">
+                                 <h5 class="card-title">Danger card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                           <div class="card text-white bg-warning mb-4">
+                               <div class="card-body">
+                                   <h5 class="card-title">Warning card title</h5>
+                                   <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                               </div>
+                           </div>
+                           </div> -->
+                        <div class="col-sm-6">
+                           <div class="card text-white bg-info mb-4">
+                              <div class="card-body">
+                                 <h5 class="card-title">Info card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card text-white bg-dark mb-4">
+                              <div class="card-body">
+                                 <h5 class="card-title">Dark card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card bg-light">
+                              <div class="card-body">
+                                 <h5 class="card-title">Light card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12 py-4 px-sm-5">
+                     <h4>Customizing the Card Border and Text</h4>
+                     <div class="row">
+                        <div class="col-sm-6">
+                           <div class="card border-primary mb-4">
+                              <div class="card-body text-primary">
+                                 <h5 class="card-title">Primary card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card border-secondary mb-4">
+                              <div class="card-body text-secondary">
+                                 <h5 class="card-title">Secondary card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card border-success mb-4">
+                              <div class="card-body text-success">
+                                 <h5 class="card-title">Success card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card border-danger mb-4">
+                              <div class="card-body text-danger">
+                                 <h5 class="card-title">Danger card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <!-- <div class="col-sm-6">
+                           <div class="card border-warning mb-4">
+                               <div class="card-body text-warning">
+                                   <h5 class="card-title">Warning card title</h5>
+                                   <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                               </div>
+                           </div>
+                           </div> -->
+                        <div class="col-sm-6">
+                           <div class="card border-info mb-4">
+                              <div class="card-body text-info">
+                                 <h5 class="card-title">Info card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card border-dark mb-4">
+                              <div class="card-body text-dark">
+                                 <h5 class="card-title">Dark card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-sm-6">
+                           <div class="card border-light mb-4">
+                              <div class="card-body text-muted">
+                                 <h5 class="card-title">Light card title</h5>
+                                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor.</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /#page-content-wrapper -->
+      </div>
+      {% endblock %}

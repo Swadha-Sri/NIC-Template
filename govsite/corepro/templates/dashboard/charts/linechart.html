@@ -1,0 +1,57 @@
+{% extends "base/dashboard_base.html" %}
+{% block title %}Bootstrap Application Template | Line Charts{% endblock %}
+{% block content %}
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+               <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+               <li>Charts</li>
+               <li>Line Charts</li>
+            </ul>
+            <div class="container-fluid">
+               <h3 class="mt-4" style="font-size:32px;">Line Charts</h3>
+               <p>A line chart is a way of plotting data points on a line. Often, it is used to show trend data, or the comparison of different data sets.</p>
+               <p>There are various types of Line Charts, some of them are shown below:</p>
+               <!-- Charts -->
+               <div class="row">
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Basic Line Chart</h4>
+                     <canvas id="basicLineChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Multi-axis Line Chart</h4>
+                     <canvas id="multiaxisLineChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Stepped Line Chart</h4>
+                     <canvas id="steppedLineChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Interpolation Line Chart</h4>
+                     <canvas id="interpolationLineChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Line Style Chart</h4>
+                     <canvas id="lineStylesChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Point-circle Line Chart</h4>
+                     <canvas id="pointCircleLineChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Point-triangle Line Chart</h4>
+                     <canvas id="pointTriangleLineChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Point-cross Line Chart</h4>
+                     <canvas id="pointCrossRotLineChart" width="400" height="300"></canvas>
+                  </div>
+                  <div class="col-md-6 p-4">
+                     <h4 class="text-center">Point-line Line Chart</h4>
+                     <canvas id="pointLineLineChart" width="400" height="300"></canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /#page-content-wrapper -->
+      </div>
+{% endblock %}

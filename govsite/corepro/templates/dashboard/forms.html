@@ -1,0 +1,128 @@
+{% extends 'base/public_base.html' %}
+{% block title %}Bootstrap Application Template | Forms{% endblock %}
+{% block content %}
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+               <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+               <li>Forms</li>
+            </ul>
+            <div class="container-fluid">
+               <h2 class="mt-4">Forms</h2>
+               <p>HTML Forms are required, when we want to collect some data from the site visitor. For example, during user registration we would like to collect information such as name, email address, credit card, etc.</p>
+               <p>The HTML <code>&lt;form&gt;</code> tag is used to create an HTML form.</p>
+               <p>There are various form elements available like text fields, textarea fields, drop-down menus, radio buttons, checkboxes, etc. as shown below:</p>
+               <!-- Charts -->
+               <div class="row">
+                  <div class="col-md-12 p-sm-5">
+                     <form action="" class="w-sm-50 w-auto mx-auto">
+                        {% csrf_token %}
+                        <div class="form-group mb-3">
+                           <label class="mb-3" for="name">Name:</label>
+                           <input type="text" class="form-control" id="name" placeholder="Enter name">
+                        </div>
+                        <div class="form-group mb-3">
+                           <label class="mb-3" for="email">Email address:</label>
+                           <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        </div>
+                        <div class="form-group mb-3">
+                           <label class="mb-3" for="email2">Email address:</label>
+                           <div class="input-group">
+                              <input type="text" class="form-control" id="email2" placeholder="Enter email">
+                              <div class="input-group-append">
+                                 <span class="input-group-text">@nic.in</span>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="form-group mb-3 my-3">
+                           <label class="mb-3" for="email3">Email address:</label>
+                           <div class="input-group">
+                              <div class="input-group-prepend">
+                                 <span class="input-group-text"> <i class="fa-solid fa-envelope"></i> </span>
+                              </div>
+                              <input type="text" class="form-control" id="email3" placeholder="Enter email">
+                           </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                           <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                           <label for="floatingInput">Email address</label>
+                        </div>
+                        <div class="form-group mb-3">
+                           <label class="mb-3" for="pwd">Password:</label>
+                           <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+                        </div>
+                        <div class="form-group mb-3">
+                           <label class="mb-3" for="comment">Comment:</label>
+                           <textarea class="form-control" rows="5" id="comment" style="resize: none;" placeholder="Enter your comment"></textarea>
+                        </div>
+                        <div class="form-check-inline">
+                           <input type="checkbox" class="form-check-input" id="customCheck1" name="example1">
+                           <label class="form-check-label" for="customCheck1">Option 1</label>
+                        </div>
+                        <div class="form-check-inline">
+                           <input type="checkbox" class="form-check-input" id="customCheck2" name="example2">
+                           <label class="custom-control-label" for="customCheck2">Option 2</label>
+                        </div>
+                        <div class="form-check-inline">
+                           <input type="checkbox" class="form-check-input" id="customCheck3" name="example3">
+                           <label class="custom-control-label" for="customCheck3">Option 3</label>
+                        </div>
+                        <div class="form-group mb-3 my-3">
+                           <label class="mb-3" for="search">Search:</label>
+                           <div class="input-group">
+                              <input type="text" class="form-control" id="search" placeholder="Search">
+                              <div class="input-group-append">
+                                 <button class="btn btn-primary b-btn" type="submit">Go</button>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="form-group mb-3">
+                           <label class="mb-3" for="sel1">Select list:</label>
+                           <select class="form-select" aria-label="Default select example">
+                              <option selected>Open this select menu</option>
+                              <option value="1">Option 1</option>
+                              <option value="2">Option 2</option>
+                              <option value="3">Option 3</option>
+                              <option value="3">Option 4</option>
+                           </select>
+                        </div>
+                        <fieldset>
+                           <legend>Select Gender</legend>
+                           <div class="form-group mb-3">
+                              <div class="form-check">
+                                 <label class="mb-3" class="form-check-label" for="radio1">
+                                 <input type="radio" id="radio1" class="form-check-input" name="optradio">Male
+                                 </label>
+                              </div>
+                              <div class="form-check">
+                                 <label class="mb-3" class="form-check-label" for="radio2">
+                                 <input type="radio" id="radio2" class="form-check-input" name="optradio">Female
+                                 </label>
+                              </div>
+                              <div class="form-check">
+                                 <label class="mb-3" class="form-check-label" for="radio3">
+                                 <input type="radio" id="radio3" class="form-check-input" name="optradio">Others
+                                 </label>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <div class="form-group mb-3">
+                           <label class="mb-3" for="range">Select range:</label>
+                           <input type="range" id="range" class="form-range">
+                        </div>
+                        <div class="form-group mb-3">
+                           <label class="mb-3" for="upload">File upload:</label>
+                           <input type="file" id="upload" class="form-control border">
+                        </div>
+                        <div class="form-group mb-3 form-check">
+                           <label class="mb-3" class="form-check-label" for="rem-me">
+                           <input class="form-check-input" id="rem-me" type="checkbox"> Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary b-btn">Submit</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /#page-content-wrapper -->
+      </div>
+      {% endblock%}

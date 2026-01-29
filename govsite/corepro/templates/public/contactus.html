@@ -1,0 +1,27 @@
+{% extends 'base/public_base.html' %}
+{% block title %}Bootstrap Security Template | Contact Us{% endblock %}
+{% block content %}
+      <!-- Breadcrumb -->
+      <div class="bg-light">
+         <div class="container">
+            <ul class="breadcrumb bg-light ps-0">
+               <li><a href="{% url 'index' %}">Home</a></li>
+               <li>Contact Us</li>
+            </ul>
+         </div>
+      </div>
+      <!-- Inner body -->
+      <div class="mt-4 mb-5" id="b-contact-sec">
+         <div class="container">
+            <h3 class="mt-5"><span>Contact Us</span></h3>
+            <p class="mt-5">
+               National Informatics Centre <br>
+               Ministry of Electronics & Information Technology <br>
+               A-Block, CGO Complex, Lodhi Road <br>
+               New Delhi - 110 003 India
+            </p>
+            <p>Email: test[at]nic[dot]in</p>
+            <p>Contact no.: +91-11-1234-5678</p>
+         </div>
+      </div>
+{% endblock %}

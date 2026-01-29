@@ -1,0 +1,402 @@
+{% extends 'base/public_base.html' %}
+{% block title %}Bootstrap Application Template | Tables{% endblock %}
+{% block content %}
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+               <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+               <li>Tables</li>
+            </ul>
+            <div class="container-fluid">
+               <h3 class="mt-4" style="font-size:32px;">Tables</h3>
+               <p>Tables allow the user to arrange data like text, images, links, other tables, etc. into rows and columns of cells.</p>
+               <p>They are created using the <code>&lt;table&gt;</code> tag in which the <code>&lt;tr&gt;</code> tag is used to create table rows and <code>&lt;td&gt;</code> tag is used to create data cells. The elements under <code>&lt;td&gt;</code> are regular and left aligned by default.</p>
+               <p>Various different tables in bootstrap are shown below:</p>
+               <!-- Charts -->
+               <div class="row">
+                  <div class="col-md-12 p-5 table-responsive">
+                     <h4 class="text-center">Basic Table</h4>
+                     <table class="table text-nowrap">
+                        <thead>
+                           <tr>
+                              <th>Sno.</th>
+                              <th>Firstname</th>
+                              <th>Lastname</th>
+                              <th>Email</th>
+                              <th>Phone no. (Office)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>1.</td>
+                              <td>Vikas</td>
+                              <td>Sharma</td>
+                              <td>vikas.sharma@mail.in</td>
+                              <td>011-26793735</td>
+                           </tr>
+                           <tr>
+                              <td>2.</td>
+                              <td>Dhruv</td>
+                              <td>Verma</td>
+                              <td>dhruv.verma@mail.in</td>
+                              <td>011-26793736</td>
+                           </tr>
+                           <tr>
+                              <td>3.</td>
+                              <td>Shalini</td>
+                              <td>Gupta</td>
+                              <td>shalini.gupta@mail.in</td>
+                              <td>011-26793737</td>
+                           </tr>
+                           <tr>
+                              <td>4.</td>
+                              <td>Preeti</td>
+                              <td>Aggarwal</td>
+                              <td>preeti.aggarwal@mail.in</td>
+                              <td>011-26793738</td>
+                           </tr>
+                           <tr>
+                              <td>5.</td>
+                              <td>Neha</td>
+                              <td>Gupta</td>
+                              <td>neha.gupta@mail.in</td>
+                              <td>011-26793739</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="col-md-12 p-5 table-responsive">
+                     <h4 class="text-center">Stripped-row Table</h4>
+                     <table class="table table-striped text-nowrap">
+                        <thead>
+                           <tr>
+                              <th>Sno.</th>
+                              <th>Firstname</th>
+                              <th>Lastname</th>
+                              <th>Email</th>
+                              <th>Phone no. (Office)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>1.</td>
+                              <td>Vikas</td>
+                              <td>Sharma</td>
+                              <td>vikas.sharma@mail.in</td>
+                              <td>011-26793735</td>
+                           </tr>
+                           <tr>
+                              <td>2.</td>
+                              <td>Dhruv</td>
+                              <td>Verma</td>
+                              <td>dhruv.verma@mail.in</td>
+                              <td>011-26793736</td>
+                           </tr>
+                           <tr>
+                              <td>3.</td>
+                              <td>Shalini</td>
+                              <td>Gupta</td>
+                              <td>shalini.gupta@mail.in</td>
+                              <td>011-26793737</td>
+                           </tr>
+                           <tr>
+                              <td>4.</td>
+                              <td>Preeti</td>
+                              <td>Aggarwal</td>
+                              <td>preeti.aggarwal@mail.in</td>
+                              <td>011-26793738</td>
+                           </tr>
+                           <tr>
+                              <td>5.</td>
+                              <td>Neha</td>
+                              <td>Gupta</td>
+                              <td>neha.gupta@mail.in</td>
+                              <td>011-26793739</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="col-md-12 p-5 table-responsive">
+                     <h4 class="text-center">Stripped-row Bordered Table</h4>
+                     <table class="table table-striped table-bordered text-nowrap">
+                        <thead>
+                           <tr>
+                              <th>Sno.</th>
+                              <th>Firstname</th>
+                              <th>Lastname</th>
+                              <th>Email</th>
+                              <th>Phone no. (Office)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>1.</td>
+                              <td>Vikas</td>
+                              <td>Sharma</td>
+                              <td>vikas.sharma@mail.in</td>
+                              <td>011-26793735</td>
+                           </tr>
+                           <tr>
+                              <td>2.</td>
+                              <td>Dhruv</td>
+                              <td>Verma</td>
+                              <td>dhruv.verma@mail.in</td>
+                              <td>011-26793736</td>
+                           </tr>
+                           <tr>
+                              <td>3.</td>
+                              <td>Shalini</td>
+                              <td>Gupta</td>
+                              <td>shalini.gupta@mail.in</td>
+                              <td>011-26793737</td>
+                           </tr>
+                           <tr>
+                              <td>4.</td>
+                              <td>Preeti</td>
+                              <td>Aggarwal</td>
+                              <td>preeti.aggarwal@mail.in</td>
+                              <td>011-26793738</td>
+                           </tr>
+                           <tr>
+                              <td>5.</td>
+                              <td>Neha</td>
+                              <td>Gupta</td>
+                              <td>neha.gupta@mail.in</td>
+                              <td>011-26793739</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="col-md-12 p-5 table-responsive">
+                     <h4 class="text-center">Stripped-row Bordered Table with Hover effect</h4>
+                     <table class="table table-striped table-bordered table-hover text-nowrap">
+                        <thead>
+                           <tr>
+                              <th>Sno.</th>
+                              <th>Firstname</th>
+                              <th>Lastname</th>
+                              <th>Email</th>
+                              <th>Phone no. (Office)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>1.</td>
+                              <td>Vikas</td>
+                              <td>Sharma</td>
+                              <td>vikas.sharma@mail.in</td>
+                              <td>011-26793735</td>
+                           </tr>
+                           <tr>
+                              <td>2.</td>
+                              <td>Dhruv</td>
+                              <td>Verma</td>
+                              <td>dhruv.verma@mail.in</td>
+                              <td>011-26793736</td>
+                           </tr>
+                           <tr>
+                              <td>3.</td>
+                              <td>Shalini</td>
+                              <td>Gupta</td>
+                              <td>shalini.gupta@mail.in</td>
+                              <td>011-26793737</td>
+                           </tr>
+                           <tr>
+                              <td>4.</td>
+                              <td>Preeti</td>
+                              <td>Aggarwal</td>
+                              <td>preeti.aggarwal@mail.in</td>
+                              <td>011-26793738</td>
+                           </tr>
+                           <tr>
+                              <td>5.</td>
+                              <td>Neha</td>
+                              <td>Gupta</td>
+                              <td>neha.gupta@mail.in</td>
+                              <td>011-26793739</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="col-md-12 p-5 table-responsive">
+                     <h4 class="text-center">Table with Contextual Classes</h4>
+                     <table class="table table-bordered text-nowrap">
+                        <thead>
+                           <tr>
+                              <th>Sno.</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Phone no. (Office)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>1.</td>
+                              <td>Default</td>
+                              <td>test@mail.in</td>
+                              <td>011-12345678</td>
+                           </tr>
+                           <tr class="table-primary">
+                              <td>2.</td>
+                              <td>Primary</td>
+                              <td>test@mail.in</td>
+                              <td>011-12345678</td>
+                           </tr>
+                           <tr class="table-secondary">
+                              <td>8.</td>
+                              <td>Secondary</td>
+                              <td>test@mail.in</td>
+                              <td>011-12345678</td>
+                           </tr>
+                           <tr class="table-success">
+                              <td>3.</td>
+                              <td>Success</td>
+                              <td>test@mail.in</td>
+                              <td>011-12345678</td>
+                           </tr>
+                           <tr class="table-danger">
+                              <td>4.</td>
+                              <td>Danger</td>
+                              <td>test@mail.in</td>
+                              <td>011-12345678</td>
+                           </tr>
+                           <tr class="table-info">
+                              <td>5.</td>
+                              <td>Info</td>
+                              <td>test@mail.in</td>
+                              <td>011-12345678</td>
+                           </tr>
+                           <tr class="table-warning">
+                              <td>6.</td>
+                              <td>Warning</td>
+                              <td>test@mail.in</td>
+                              <td>011-12345678</td>
+                           </tr>
+                           <tr class="table-active">
+                              <td>7.</td>
+                              <td>Active</td>
+                              <td>test@mail.in</td>
+                              <td>011-12345678</td>
+                           </tr>
+                           <tr class="table-light">
+                              <td>9.</td>
+                              <td>Light</td>
+                              <td>test@mail.in</td>
+                              <td>011-12345678</td>
+                           </tr>
+                           <tr class="table-dark text-dark">
+                              <td>10.</td>
+                              <td>Dark</td>
+                              <td>test@mail.in</td>
+                              <td>011-12345678</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="col-md-12 p-5 table-responsive">
+                     <h4 class="text-center">Table with Dark Head</h4>
+                     <table class="table table-bordered text-nowrap">
+                        <thead class="table-dark">
+                           <tr>
+                              <th>Sno.</th>
+                              <th>Firstname</th>
+                              <th>Lastname</th>
+                              <th>Email</th>
+                              <th>Phone no. (Office)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>1.</td>
+                              <td>Vikas</td>
+                              <td>Sharma</td>
+                              <td>vikas.sharma@mail.in</td>
+                              <td>011-26793735</td>
+                           </tr>
+                           <tr>
+                              <td>2.</td>
+                              <td>Dhruv</td>
+                              <td>Verma</td>
+                              <td>dhruv.verma@mail.in</td>
+                              <td>011-26793736</td>
+                           </tr>
+                           <tr>
+                              <td>3.</td>
+                              <td>Shalini</td>
+                              <td>Gupta</td>
+                              <td>shalini.gupta@mail.in</td>
+                              <td>011-26793737</td>
+                           </tr>
+                           <tr>
+                              <td>4.</td>
+                              <td>Preeti</td>
+                              <td>Aggarwal</td>
+                              <td>preeti.aggarwal@mail.in</td>
+                              <td>011-26793738</td>
+                           </tr>
+                           <tr>
+                              <td>5.</td>
+                              <td>Neha</td>
+                              <td>Gupta</td>
+                              <td>neha.gupta@mail.in</td>
+                              <td>011-26793739</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="col-md-12 p-5 table-responsive">
+                     <h4 class="text-center">Table with Light Head</h4>
+                     <table class="table table-bordered text-nowrap">
+                        <thead class="table-light">
+                           <tr>
+                              <th>Sno.</th>
+                              <th>Firstname</th>
+                              <th>Lastname</th>
+                              <th>Email</th>
+                              <th>Phone no. (Office)</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>1.</td>
+                              <td>Vikas</td>
+                              <td>Sharma</td>
+                              <td>vikas.sharma@mail.in</td>
+                              <td>011-26793735</td>
+                           </tr>
+                           <tr>
+                              <td>2.</td>
+                              <td>Dhruv</td>
+                              <td>Verma</td>
+                              <td>dhruv.verma@mail.in</td>
+                              <td>011-26793736</td>
+                           </tr>
+                           <tr>
+                              <td>3.</td>
+                              <td>Shalini</td>
+                              <td>Gupta</td>
+                              <td>shalini.gupta@mail.in</td>
+                              <td>011-26793737</td>
+                           </tr>
+                           <tr>
+                              <td>4.</td>
+                              <td>Preeti</td>
+                              <td>Aggarwal</td>
+                              <td>preeti.aggarwal@mail.in</td>
+                              <td>011-26793738</td>
+                           </tr>
+                           <tr>
+                              <td>5.</td>
+                              <td>Neha</td>
+                              <td>Gupta</td>
+                              <td>neha.gupta@mail.in</td>
+                              <td>011-26793739</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /#page-content-wrapper -->
+      </div>
+     {% endblock %}

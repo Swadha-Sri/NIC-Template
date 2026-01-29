@@ -1,0 +1,26 @@
+{% extends "base/dashboard_base.html" %}
+{% block title %}Bootstrap Application Template | Scatter Chart{% endblock %}
+{% block content %}
+            <!-- Breadcrumb -->
+            <ul class="breadcrumb">
+               <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+               <li>Charts</li>
+               <li>Other Charts</li>
+               <li>Scatter Chart</li>
+            </ul>
+            <div class="container-fluid">
+               <h3 class="mt-4" style="font-size:32px;">Scatter Chart</h3>
+               <p>Scatter charts are based on basic line charts with the x axis changed to a linear axis. To use a scatter chart, data must be passed as objects containing X and Y properties. It is used for comparing the large numbers of data points without regard to time.</p>
+               <p>Scatter Chart with four datasets is shown below:</p>
+               <!-- Charts -->
+               <div class="row">
+                  <div class="col-md-12 p-4">
+                     <h4 class="text-center">Scatter Chart</h4>
+                     <canvas id="scatterChart" width="400" height="250"></canvas>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /#page-content-wrapper -->
+      </div>
+      {% endblock %}
