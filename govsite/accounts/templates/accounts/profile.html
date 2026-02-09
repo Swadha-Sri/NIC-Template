@@ -1,0 +1,72 @@
+{% extends 'base/dashboard_base.html' %}
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="mb-4">My Profile</h2>
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+            
+            <!-- Profile Card -->
+            <div class="card mb-4">
+                <div class="card-header text-white" style="background-color: #048998;">
+                    <h5 class="mb-0">Profile Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Account Status:</strong>
+                                {% if profile.is_account_locked %}
+                                    <div class="alert alert-danger">
+                                        Account is locked until {{ profile.account_locked_until|date:"d M Y, H:i" }}
+                                    </div>
+                                {% else %}
+                                    <p class="text-success">✓ Active</p>
+                                {% endif %}
+                                </p>
+                            <p><strong>Username:</strong> {{ user.username }}</p>
+                            <p><strong>First Name:</strong> {{ user.first_name }}</p>
+                            <p><strong>Last Name:</strong> {{ user.last_name|default:"N/A" }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                            <p><strong>Mobile:</strong> {{ profile.mobile }}</p>
+                            <p><strong>Email Verified:</strong> 
+                                {% if profile.email_verified %}
+                                    <span class="badge bg-success">Yes</span>
+                                {% else %}
+                                    <span class="badge bg-danger">No</span>
+                                {% endif %}
+                            </p>
+                            <p><strong>Mobile Verified:</strong>
+                                {% if profile.mobile_verified %}
+                                    <span class="badge bg-success">Yes</span>
+                                {% else %}
+                                    <span class="badge bg-danger">No</span>
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                    <hr>
+                    <p><strong>Member Since:</strong> {{ profile.created_at|date:"d M Y" }}</p>
+                    <p><strong>Last Updated:</strong> {{ profile.updated_at|date:"d M Y, H:i" }}</p>
+                    {% if profile.last_login_at %}
+                        <p><strong>Last Login:</strong> {{ profile.last_login_at|date:"d M Y, H:i" }} from IP: {{ profile.last_login_ip }}</p>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+                    <a href="{% url 'change_password' %}" class="btn btn-warning">Change Password</a>
+                    <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -7,6 +7,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="description" content="Bootstrap Template created by UxDT division, National Informatics Centre">
       <meta name="keywords" content="HTML, Bootstrap, CSS, JS">
+      <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
       <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" />
       <!-- Custom styles for this template -->
 	  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
@@ -101,7 +102,6 @@
 				  <img src="{% static 'images/icons/ico-sitemap.png' %}" alt="sitemap icon">
 				</a>
 			  </div>
-
 			</div>
 		  </div>
 		</div>
@@ -136,37 +136,44 @@
          transform: rotate(45deg) translate(-5px, -7px);
          }
       </style>
-      
       <!-- Global Navigation -->
       <div class="globalnav-bg">
          <div class="container">
-            <nav class="navbar navbar-expand-sm navbar-dark px-0">
-               <div class="d-flex w-100 b-nav-mobile">
-                  <button class="navbar-toggler align-self-center b-btn-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" onclick="myFunction(this)">
-                     <span style="display:none;">Menu</span>
-                     <div>
-                        <div class="bar1"></div>
-                        <div class="bar2"></div>
-                        <div class="bar3"></div>
-                     </div>
-                  </button>
-                  <button class="btn btn-outline-light align-self-center ml-auto b-btn-login" type="button" data-bs-toggle="modal" data-bs-target="#login-modal">
-                     Log In
-                  </button> 
-               </div>
-               <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                  <ul class="navbar-nav main-menu d-flex">
-                     <li class="nav-item d-block"> <a href="{% url 'index' %}" class="nav-link active">Home</a> </li>
-                     <li class="nav-item d-block"> <a href="{% url 'inner' %}" class="nav-link">Advisories</a></li>
-                     <li class="nav-item d-block"> <a href="{% url 'contactus' %}" class="nav-link">Contact Us</a></li>
-                  </ul>
-               </div>
-            </nav>
+         <nav class="navbar navbar-expand-sm navbar-dark px-0">
+            <div class="d-flex w-100 b-nav-mobile">
+               <button class="navbar-toggler align-self-center b-btn-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" onclick="myFunction(this)">
+                  <span style="display:none;">Menu</span>
+                  <div>
+                  <div class="bar1"></div>
+                  <div class="bar2"></div>
+                  <div class="bar3"></div>
+                  </div>
+               </button>
+               <button class="btn btn-outline-light align-self-center ml-auto b-btn-login" type="button" data-bs-toggle="modal" data-bs-target="#login-modal">
+                  Log In
+               </button> 
+            </div>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+               <ul class="navbar-nav main-menu d-flex">
+                  <li class="nav-item d-block"> <a href="{% url 'index' %}" class="nav-link {% block nav_index %}{% endblock %}">Home</a> </li>
+                  <li class="nav-item d-block"> <a href="{% url 'inner' %}" class="nav-link {% block nav_inner %}{% endblock %}">Advisories</a></li>
+                  <li class="nav-item d-block"> <a href="{% url 'contactus' %}" class="nav-link {% block nav_contact %}{% endblock %}">Contact Us</a></li>
+                  {% if user.is_authenticated %}
+                  <li class="nav-item d-block">
+                     <a class="nav-link" href="{% url 'profile' %}">My Profile</a>
+                  </li>
+                  <li class="nav-item d-block">
+                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                  </li>
+                     {% endif %}
+               </ul>
+            </div>
+         </nav>
          </div>
       </div>
       <script>
          function myFunction(x) {
-           x.classList.toggle("change");
+         x.classList.toggle("change");
          }
       </script>
       <!-- Page Content -->
@@ -222,15 +229,15 @@
                </div>
                <!-- Modal body -->
                <div class="modal-body">
-                  <form action="{% url 'dashboard' %}" autocomplete="off" method="POST">
+                  <form action="{% url 'login' %}" autocomplete="off" method="POST">
                      {% csrf_token %}
                      <div class="form-group mb-3">
                         <label for="login-email" class="mb-2">Email:</label>
-                        <input type="email" class="form-control" id="login-email" placeholder="Enter email" name="login-email">
+                        <input type="email" class="form-control" id="login-email" placeholder="Enter email" name="login-email" required>
                      </div>
                      <div class="form-group mb-3">
                         <label for="login-pwd" class="mb-2">Password:</label>
-                        <input type="password" class="form-control" id="login-pwd" placeholder="Enter password" name="login-pwd">
+                        <input type="password" class="form-control" id="login-pwd" placeholder="Enter password" name="login-pwd" required>
                      </div>
                      <div class="form-group form-check mb-3">
                         <label class="form-check-label" for="login-rem">
@@ -257,28 +264,65 @@
                </div>
                <!-- Modal body -->
                <div class="modal-body">
-                  <form action="" autocomplete="off">
+                  {% if messages %}
+                     {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                     {% endfor %}
+                  {% endif %}
+                  {% if error %}
+                     <div class="alert alert-danger">{{ error }}</div>
+                  {% endif %}
+                  <form action="{% url 'register' %}" autocomplete="off" method="POST">
                      {% csrf_token %}
-                     <div class="form-group mb-3">
-                        <label for="signup-name" class="mb-2">Name:</label>
-                        <input type="text" class="form-control" id="signup-name" placeholder="Enter name" name="signup-name">
+                     <div id="signup-fields">
+                        <div class="form-group mb-3">
+                           <label for="signup-username" class="mb-2">Username:</label>
+                           <input type="text" class="form-control" id="signup-username" placeholder="Enter username" name="signup-username" value="{{ signup_username|default:'' }}" required {% if show_email_otp or show_mobile_otp %}disabled{% endif %}>
+                        </div>
+                        <div class="form-group mb-3">
+                           <label for="signup-name" class="mb-2">Name:</label>
+                           <input type="text" class="form-control" id="signup-name" placeholder="Enter name" name="signup-name" value="{{ signup_name|default:'' }}" required {% if show_email_otp or show_mobile_otp %}disabled{% endif %}>
+                        </div>
+                        <div class="form-group mb-3">
+                           <label for="signup-email" class="mb-2">Email:</label>
+                           <input type="email" class="form-control" id="signup-email" placeholder="Enter email" name="signup-email" value="{{ signup_email|default:'' }}" required {% if show_email_otp or show_mobile_otp %}disabled{% endif %}>
+                        </div>
+                        <div class="form-group mb-3">
+                           <label for="signup-mobile" class="mb-2">Mobile no.:</label>
+                           <input type="tel" class="form-control" id="signup-mobile" placeholder="Enter mobile no." name="signup-mobile" value="{{ signup_mobile|default:'' }}" required {% if show_email_otp or show_mobile_otp %}disabled{% endif %}>
+                        </div>
+                        <div class="form-group mb-3">
+                           <label for="signup-pwd" class="mb-2">Password:</label>
+                           <input type="password" class="form-control" id="signup-pwd" placeholder="Enter password" name="signup-pwd" required {% if show_email_otp or show_mobile_otp %}disabled{% endif %}>
+                        </div>
+                        <div class="form-group mb-3">
+                           <label for="signup-confirm-pwd" class="mb-2">Confirm Password:</label>
+                           <input type="password" class="form-control" id="signup-confirm-pwd" placeholder="Confirm password" name="signup-confirm-pwd" required {% if show_email_otp or show_mobile_otp %}disabled{% endif %}>
+                        </div>
                      </div>
-                     <div class="form-group mb-3">
-                        <label for="signup-email" class="mb-2">Email:</label>
-                        <input type="email" class="form-control" id="signup-email" placeholder="Enter email" name="signup-email">
+                     <!-- EMAIL OTP SECTION (HIDDEN INITIALLY) -->
+                     <div id="email-otp-section" style="display:{% if show_email_otp %}block{% else %}none{% endif %};">
+                        <div class="form-group mb-3">
+                              <label for="email_otp">Enter Email OTP</label>
+                              <input type="text" class="form-control" id="email_otp" name="email_otp" maxlength="6" data-required="true" {% if show_email_otp %}required{% endif %}>
+                        </div>
                      </div>
-                     <div class="form-group mb-3">
-                        <label for="signup-mobile" class="mb-2">Mobile no.:</label>
-                        <input type="number" class="form-control" id="signup-mobile" placeholder="Enter mobile no." name="signup-mobile">
+                     <!-- Second step → Verify OTP -->
+                     <button type="submit" class="btn btn-success b-btn" id="verify-email-otp-btn" style="display:none;">
+                           Verify Email OTP
+                     </button>
+                     <!-- MOBILE OTP SECTION -->
+                     <div id="mobile-otp-section" style="display:none;">
+                        <div class="form-group mb-3">
+                           <label for="mobile_otp">Enter Mobile OTP</label>
+                           <input type="text" class="form-control" id="mobile_otp" name="mobile_otp" maxlength="6" data-required="true" {% if show_mobile_otp %}required{% endif %}>
+                        </div>
                      </div>
-                     <div class="form-group mb-3">
-                        <label for="signup-pwd" class="mb-2">Password:</label>
-                        <input type="password" class="form-control" id="signup-pwd" placeholder="Enter password" name="signup-pwd">
-                     </div>
-                     <p class="text-end b-already-reg">Already Registered? <a href="" data-bs-toggle="modal" data-bs-target="#login-modal" data-bs-dismiss="modal">Log In</a></p>
                      <div class="text-center py-4">
-                        <button type="submit" class="btn btn-primary b-btn">Sign Up</button>
+                        <button type="submit" class="btn btn-primary b-btn" id="signup-btn">Sign Up</button>
                      </div>
+                     <button type="submit" class="btn btn-success b-btn" id="verify-mobile-otp-btn" style="display:none;">Verify Mobile OTP</button>
+                     <p class="text-end b-already-reg">Already Registered? <a href="" data-bs-toggle="modal" data-bs-target="#login-modal" data-bs-dismiss="modal">Log In</a></p>
                   </form>
                </div>
             </div>
@@ -299,11 +343,11 @@
                      {% csrf_token %}
                      <div class="form-group mb-3">
                         <label for="fdbk-name">Name:</label>
-                        <input type="text" class="form-control" id="fdbk-name" placeholder="Enter name" name="fdbk-name">
+                        <input type="text" class="form-control" id="fdbk-name" placeholder="Enter name" name="fdbk-name" required>
                      </div>
                      <div class="form-group mb-3">
                         <label for="fdbk-email" class="mb-2">Email:</label>
-                        <input type="email" class="form-control" id="fdbk-email" placeholder="Enter email" name="fdbk-email">
+                        <input type="email" class="form-control" id="fdbk-email" placeholder="Enter email" name="fdbk-email" required>
                      </div>
                      <div class="form-group mb-3">
                         <label for="fdbk-subject" class="mb-2">Subject:</label>
@@ -315,7 +359,7 @@
                      </div>
                      <div class="form-group mb-3">
                         <label for="fdbk-comment" class="mb-2">Comment:</label>
-                        <textarea class="form-control" id="fdbk-comment" placeholder="Enter feedback" name="fdbk-comment" rows="5" style="resize: none;"></textarea>
+                        <textarea class="form-control" id="fdbk-comment" placeholder="Enter feedback" name="fdbk-comment" rows="5" style="resize: none;" required></textarea>
                      </div>
                      <div class="text-center py-4">
                         <button type="submit" class="btn btn-primary b-btn">Submit</button>
@@ -358,6 +402,58 @@
          });
       </script>
       <script src="{% static 'vendor/jquery-ui/jquery-ui.min.js' %}"></script>
+      <script>
+         document.addEventListener("DOMContentLoaded", function () {
+             {% if show_email_otp %}
+                 // Disable signup fields
+                 document.querySelectorAll("#signup-fields input").forEach(el => {
+                     el.disabled = true;
+                 });
+         
+                 // Show email OTP section
+                 document.getElementById("email-otp-section").style.display = "block";
+                const emailOtpInput = document.getElementById("email_otp");
+                if (emailOtpInput && emailOtpInput.dataset.required === "true") {
+                   emailOtpInput.setAttribute("required", "required");
+                }
+         
+                 // Switch buttons
+                 let signupBtn = document.getElementById("signup-btn");
+                  if (signupBtn) {
+                     signupBtn.style.display = "none";
+                  }
+                 document.getElementById("verify-email-otp-btn").style.display = "inline-block";
+         
+                 // Reopen signup modal automatically
+                 let signupModal = new bootstrap.Modal(document.getElementById("signup-modal"));
+                 signupModal.show();
+             {% endif %}
+         });
+         </script>
+         <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                {% if show_mobile_otp %}
+                  document.querySelectorAll("#signup-fields input").forEach(el => {
+                     el.disabled = true;
+                  });
+                    document.getElementById("email-otp-section").style.display = "none";
+                    document.getElementById("mobile-otp-section").style.display = "block";
+                  const emailOtpInput = document.getElementById("email_otp");
+                  if (emailOtpInput) {
+                     emailOtpInput.removeAttribute("required");
+                  }
+                  const mobileOtpInput = document.getElementById("mobile_otp");
+                  if (mobileOtpInput && mobileOtpInput.dataset.required === "true") {
+                     mobileOtpInput.setAttribute("required", "required");
+                  }
+            
+                    let signupModal = new bootstrap.Modal(
+                        document.getElementById("signup-modal")
+                    );
+                    signupModal.show();
+                {% endif %}
+            });
+            </script>
       {% block js %} {% endblock %}
    </body>
 </html>

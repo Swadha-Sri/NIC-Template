@@ -1,5 +1,6 @@
 {% extends 'base/public_base.html' %}
 {% block title %}Bootstrap Security Template | Homepage{% endblock %}
+{% block nav_index %}active{% endblock %}
 {% block content %}
       <!-- Breadcrumb -->
       <div class="b-bg-image py-5" style="padding-bottom: 200px!important">
@@ -15,23 +16,55 @@
                      <h2 class="b-login-head">Log In</h2>
                   </div>
                   <div class="">
-                     <form action="{% url 'dashboard' %}" autocomplete="off" method="POST" class="px-5 b-login-w">
+                     <form id="loginForm" action="{% url 'login' %}" autocomplete="off" method="POST" class="px-5 b-login-w">
                         {% csrf_token %}
+						{% if messages %}
+							{% for message in messages %}
+								<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+							{% endfor %}
+						{% endif %}
+						{% if error %}
+							<div class="alert alert-danger">{{ error }}</div>
+						{% endif %}
 						<div class="form-group mb-3">
                            <label for="login-email-1" class="text-white mb-2">Email:</label>
-                           <input type="email" class="form-control" id="login-email-1" placeholder="Enter email" name="login-email">
+						   <input type="email" class="form-control" id="login-email-1" placeholder="Enter email" name="login-email" value="{{ login_email|default:'' }}" {% if show_login_email_otp %}disabled{% endif %}>
+						   <small class="text-danger" id="emailError"></small>
                         </div>
                         <div class="form-group mb-3">
                            <label for="login-pwd-1" class="text-white mb-2">Password:</label>
-                           <input type="password" class="form-control" id="login-pwd-1" placeholder="Enter password" name="login-pwd">
+						   <input type="password" class="form-control" id="login-pwd-1" placeholder="Enter password" name="login-pwd" {% if show_login_email_otp %}disabled{% endif %}>
+						   <small class="text-danger" id="passwordError"></small>
                         </div>
+						{% if not show_login_email_otp %}
+							<div class="form-group mb-3">
+								<label class="text-white mb-2">Captcha:</label>
+								<div class="text-white">
+									{{ captcha_form.captcha }}
+								</div>
+								{% if captcha_form.captcha.errors %}
+									<small class="text-danger">{{ captcha_form.captcha.errors|striptags }}</small>
+								{% endif %}
+							</div>
+						{% endif %}
                         <div class="form-group custom-control custom-checkbox mb-3">
-                           <input class="custom-control-input" id="login-rem-1" type="checkbox" name="remember"> 
+						   <input class="custom-control-input" id="login-rem-1" type="checkbox" name="remember" {% if login_remember %}checked{% endif %} {% if show_login_email_otp %}disabled{% endif %}> 
                            <label class="custom-control-label text-white" for="login-rem-1">Remember me</label>
                         </div>
+						<!-- LOGIN EMAIL OTP (HIDDEN INITIALLY) -->
+						<div id="login-email-otp-section" style="display:{% if show_login_email_otp %}block{% else %}none{% endif %};">
+							<div class="form-group mb-3">
+								<label for="login_email_otp">Enter Email OTP</label>
+								<input type="text" class="form-control" id="login_email_otp" name="login_email_otp" maxlength="6" placeholder="Enter 6-digit OTP">
+								<small class="text-danger" id="otpError"></small>
+							</div>
+						</div>
                         <div class="text-center py-4">
-                           <button type="submit" class="btn btn-primary b-btn">Log In</button>
+							<button type="submit" class="btn btn-primary b-btn" id="loginActionBtn">{% if show_login_email_otp %}Verify OTP{% else %}Log In{% endif %}</button>
                         </div>
+						<div class="text-center">
+							<p style="color: white; font-weight: 700">Don't have an account? <a href="" style="text-decoration:none; color: black; " data-bs-toggle="modal" data-bs-target="#signup-modal" data-bs-dismiss="modal">Sign Up</a></p>
+						 </div>
                      </form>
                   </div>
                </div>
@@ -83,3 +116,136 @@
 		  </div>
 		</div>
 {% endblock %}
+{% block js%}
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+	
+		const form = document.getElementById("loginForm");
+		const btn = document.getElementById("loginActionBtn");
+	
+		const emailInput = document.getElementById("login-email-1");
+		const passwordInput = document.getElementById("login-pwd-1");
+		const otpInput = document.getElementById("login_email_otp");
+		const otpSection = document.getElementById("login-email-otp-section");
+	
+		let step = "login";
+
+		{% if show_login_email_otp %}
+			otpSection.style.display = "block";
+			btn.innerText = "Verify OTP";
+			btn.setAttribute("data-step", "otp");
+			step = "otp";
+			emailInput.disabled = true;
+			passwordInput.disabled = true;
+			const rememberInput = document.getElementById("login-rem-1");
+			if (rememberInput) {
+				rememberInput.disabled = true;
+			}
+		{% endif %}
+	
+		// Email validation regex
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	
+		// Function to validate email
+		function validateEmail(email) {
+			if (email.trim() === "") {
+				return { valid: false, message: "Email is required" };
+			}
+			if (!emailRegex.test(email)) {
+				return { valid: false, message: "Please enter a valid email address" };
+			}
+			return { valid: true, message: "" };
+		}
+	
+		// Function to validate password
+		function validatePassword(password) {
+			if (password.trim() === "") {
+				return { valid: false, message: "Password is required" };
+			}
+			if (password.length < 6) {
+				return { valid: false, message: "Password must be at least 6 characters" };
+			}
+			return { valid: true, message: "" };
+		}
+	
+		// Function to validate OTP
+		function validateOTP(otp) {
+			if (otp.trim() === "") {
+				return { valid: false, message: "Please enter OTP" };
+			}
+			if (!/^\d{6}$/.test(otp)) {
+				return { valid: false, message: "OTP must be 6 digits" };
+			}
+			return { valid: true, message: "" };
+		}
+	
+		// Clear errors on input
+		emailInput.addEventListener("input", function () {
+			document.getElementById("emailError").innerText = "";
+		});
+	
+		passwordInput.addEventListener("input", function () {
+			document.getElementById("passwordError").innerText = "";
+		});
+	
+		otpInput.addEventListener("input", function () {
+			document.getElementById("otpError").innerText = "";
+		});
+	
+		btn.addEventListener("click", function (e) {
+			e.preventDefault();
+	
+			document.getElementById("emailError").innerText = "";
+			document.getElementById("passwordError").innerText = "";
+	
+			if (step === "login") {
+				let valid = true;
+	
+				// Validate email
+				const emailValidation = validateEmail(emailInput.value);
+				if (!emailValidation.valid) {
+					document.getElementById("emailError").innerText = emailValidation.message;
+					valid = false;
+				}
+	
+				// Validate password
+				const passwordValidation = validatePassword(passwordInput.value);
+				if (!passwordValidation.valid) {
+					document.getElementById("passwordError").innerText = passwordValidation.message;
+					valid = false;
+				}
+	
+				if (!valid) return;
+
+				// Submit to server to send OTP
+				form.submit();
+				return;
+			}
+	
+			if (step === "otp") {
+				const otpValidation = validateOTP(otpInput.value);
+				if (!otpValidation.valid) {
+					if (!document.getElementById("otpError")) {
+						const otpError = document.createElement("small");
+						otpError.id = "otpError";
+						otpError.className = "text-danger d-block mt-2";
+						otpSection.appendChild(otpError);
+					}
+					document.getElementById("otpError").innerText = otpValidation.message;
+					return;
+				}
+	
+				// All validations passed, submit form
+				form.submit();
+			}
+		});
+	
+		// Allow form submission on Enter key
+		form.addEventListener("keypress", function (e) {
+			if (e.key === "Enter") {
+				btn.click();
+			}
+		});
+	});
+	</script>
+{% endblock%}
