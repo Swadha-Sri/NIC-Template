@@ -1,0 +1,93 @@
+{% extends 'base/dashboard_base.html' %}
+{% load static %}
+
+{% block title %}Solar Analytics | Achievement Map{% endblock %}
+
+{% block css %}
+<style>
+   .anamap-wrapper {
+      padding: 2rem;
+   }
+
+   .anamap-map {
+      height: 560px;
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #dee2e6;
+      background: #ffffff;
+   }
+
+   .map-subtitle {
+      font-size: 14px;
+      color: #6c757d;
+      margin-top: -6px;
+      margin-bottom: 16px;
+   }
+
+   .year-button-wrap {
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+   }
+
+   .year-button-wrap .btn {
+      margin-right: 8px;
+      margin-bottom: 8px;
+   }
+
+   .d-none {
+      display: none !important;
+   }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="anamap-wrapper">
+   <div class="container-fluid">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+         <h4 class="mb-0">Report - Solar Pump GIS-based Map(UP)</h4>
+         <button type="button" class="btn btn-outline-success btn-sm" onclick="printMapPage()">Print Page</button>
+      </div>
+      <p class="map-subtitle mb-3">
+         Achievement Rate = Installed / Target × 100. Average map uses total installed across years / total target across years × 100.
+      </p>
+
+      <div id="yearButtons" class="year-button-wrap"></div>
+
+      <div id="singleMapSection">
+         <h5 class="mb-3">Average Achievement (All Years)</h5>
+         <div id="avgMapSingle" class="anamap-map"></div>
+      </div>
+
+      <div id="splitMapSection" class="d-none">
+         <div class="row">
+            <div class="col-lg-6 mb-3">
+               <h5 class="mb-3">Average Achievement (All Years)</h5>
+               <div id="avgMapSplit" class="anamap-map"></div>
+            </div>
+            <div class="col-lg-6 mb-3">
+               <h5 id="yearMapTitle" class="mb-3">Year Achievement</h5>
+               <div id="yearMap" class="anamap-map"></div>
+            </div>
+         </div>
+      </div>
+
+      <div
+         id="anamapRoot"
+         data-geojson-url="{% static 'maps/up.geojson' %}"
+      ></div>
+
+      <script id="map-years" type="application/json">{{ map_years|safe }}</script>
+      <script id="average-map-data" type="application/json">{{ average_map_data|safe }}</script>
+      <script id="year-map-data" type="application/json">{{ year_map_data|safe }}</script>
+   </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+   function printMapPage() {
+      window.print();
+   }
+</script>
+<script src="{% static 'js/anamap.js' %}"></script>
+{% endblock %}

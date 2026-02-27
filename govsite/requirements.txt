@@ -1,4 +1,5 @@
 Django==6.0
 psycopg2-binary==2.9.9
 python-decouple==3.8
-django-simple-captcha==0.6.0
+django-simple-captcha==0.6.0scipy==1.12.0
+openpyxl==3.1.0

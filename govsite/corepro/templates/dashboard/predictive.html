@@ -1,0 +1,267 @@
+{% extends 'base/dashboard_base.html' %}
+{% block title %}Solar Analytics | Pred{% endblock %}
+{% block css %}
+<style>
+    .extra-row {
+        display: none;
+    }
+    .chart-scroll-wrap {
+        overflow-x: auto;
+        overflow-y: hidden;
+        width: 100%;
+    }
+    .year-filter {
+        position: relative;
+        display: inline-block;
+    }
+    .filter-dropdown-menu {
+        max-height: 300px;
+        overflow-y: auto;
+        min-width: 260px;
+    }
+    .stats-row {
+        background-color: #f8f9fa;
+    }
+    .stats-row td {
+        border-top: 2px solid #dee2e6;
+    }
+    .header-main {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+    .header-desc {
+        display: block;
+        font-size: 11px;
+        font-weight: normal;
+        color: #6c757d;
+        white-space: normal;
+        line-height: 1.3;
+    }
+    th {
+        vertical-align: top;
+        text-align: left;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-start mb-4">
+        <h3 class="text-center flex-grow-1 mb-0">District-Level Predictive Analytics</h3>
+        <div class="year-filter text-end ms-3">
+            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="districtFilterBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                Districts <span class="badge bg-primary ms-2">{{ selected_districts|length }}</span>
+            </button>
+            <ul class="dropdown-menu filter-dropdown-menu" aria-labelledby="districtFilterBtn">
+                {% for district in all_districts %}
+                <li>
+                    <label class="dropdown-item mb-0">
+                        <input type="checkbox" name="district" value="{{ district }}" {% if district in selected_districts %}checked{% endif %} onchange="updateDistrictFilter()">
+                        {{ district }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="mt-2 d-flex gap-2 justify-content-end">
+                <button type="button" class="btn btn-outline-primary btn-sm" onclick="selectAllDistricts()">Select All</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="unselectAllDistricts()">Unselect All</button>
+                <button type="button" class="btn btn-outline-success btn-sm" onclick="printPredictivePage()">Print Page</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th><span class="header-main">S.NO</span><span class="header-desc">Serial Number</span></th>
+                <th><span class="header-main">DC</span><span class="header-desc">District Code</span></th>
+                <th><span class="header-main">District</span><span class="header-desc">District Name</span></th>
+                <th><span class="header-main">Growth Rate (%)</span><span class="header-desc">(Slope / Latest Installed) × 100</span></th>
+                <th><span class="header-main">Next Year Target</span><span class="header-desc">Projected Installed by Linear Trend</span></th>
+                <th><span class="header-main">Loss Handling Scope (%)</span><span class="header-desc">(Historical Rejected / Historical Booking) × 100</span></th>
+                <th><span class="header-main">Risk Level</span><span class="header-desc">Based on Growth Trend</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in forecast_results %}
+            <tr class="ranking-row {% if forloop.counter > 10 %}extra-row{% endif %}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ row.distcode }}</td>
+                <td>{{ row.district }}</td>
+                <td title="(Slope / latest installed) × 100" class="fw-bold {% if row.is_negative_growth %}text-danger{% else %}text-success{% endif %}">{{ row.growth_rate_abs }}%</td>
+                <td>{{ row.predicted_next_year_installed }}</td>
+                <td title="(Historical rejected / historical booking) × 100">{{ row.loss_handling_scope_rate }}%</td>
+                <td>
+                    {% if row.risk_level == "High Growth" %}
+                        <span class="badge bg-success">High Growth</span>
+                    {% elif row.risk_level == "High Risk" %}
+                        <span class="badge bg-danger">High Risk</span>
+                    {% elif row.risk_level == "Warning" %}
+                        <span class="badge bg-warning text-dark">Warning</span>
+                    {% else %}
+                        <span class="badge bg-secondary">Stable</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            <tr class="stats-row">
+                <td colspan="3"><strong>TOTAL</strong></td>
+                <td>{{ total_growth_rate }}%</td>
+                <td>{{ total_next_year_target }}</td>
+                <td>{{ total_loss_scope_rate }}%</td>
+                <td></td>
+            </tr>
+            <tr class="stats-row">
+                <td colspan="3"><strong>MEAN</strong></td>
+                <td>{{ mean_growth_rate }}%</td>
+                <td>{{ mean_next_year_target }}</td>
+                <td>{{ mean_loss_scope_rate }}%</td>
+                <td></td>
+            </tr>
+            <tr class="stats-row">
+                <td colspan="3"><strong>MEDIAN</strong></td>
+                <td>{{ median_growth_rate }}%</td>
+                <td>{{ median_next_year_target }}</td>
+                <td>{{ median_loss_scope_rate }}%</td>
+                <td></td>
+            </tr>
+            <tr class="stats-row">
+                <td colspan="3"><strong>MODE</strong></td>
+                <td>{{ mode_growth_rate }}%</td>
+                <td>{{ mode_next_year_target }}</td>
+                <td>{{ mode_loss_scope_rate }}%</td>
+                <td></td>
+            </tr>
+            <tr class="stats-row">
+                <td colspan="3"><strong>STD DEV</strong></td>
+                <td>{{ std_dev_growth_rate }}%</td>
+                <td>{{ std_dev_next_year_target }}</td>
+                <td>{{ std_dev_loss_scope_rate }}%</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center mt-3">
+        <button id="toggleBtn" class="btn btn-primary" onclick="toggleFullTable()">
+            Show Full Ranking
+        </button>
+    </div>
+    <div class="container mt-5">
+        <h4 class="text-center mb-4">Target Focus</h4>
+        <div class="chart-scroll-wrap">
+            <canvas id="top10Chart"></canvas>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+    function getHiddenExtraRows() {
+        const extraRows = Array.from(document.querySelectorAll('.extra-row'));
+        return extraRows.filter((row) => window.getComputedStyle(row).display === 'none');
+    }
+
+    function showAllRowsForPrint() {
+        const hiddenRows = getHiddenExtraRows();
+        hiddenRows.forEach((row) => {
+            row.style.display = 'table-row';
+        });
+        return hiddenRows;
+    }
+
+    function restoreRowsAfterPrint(hiddenRows) {
+        hiddenRows.forEach((row) => {
+            row.style.display = 'none';
+        });
+    }
+
+    function printPredictivePage() {
+        const hiddenRows = showAllRowsForPrint();
+        window.print();
+        restoreRowsAfterPrint(hiddenRows);
+    }
+
+    function updateDistrictFilter(forceNone = false) {
+        const checkboxes = document.querySelectorAll('input[name="district"]:checked');
+        const districts = Array.from(checkboxes).map(cb => cb.value);
+
+        const params = new URLSearchParams();
+        if (districts.length === 0 && forceNone) {
+            params.append('district', '__none__');
+        } else {
+            districts.forEach(district => params.append('district', district));
+        }
+        window.location.href = `?${params.toString()}`;
+    }
+
+    function selectAllDistricts() {
+        const allCheckboxes = document.querySelectorAll('input[name="district"]');
+        allCheckboxes.forEach(cb => cb.checked = true);
+        updateDistrictFilter();
+    }
+
+    function unselectAllDistricts() {
+        const allCheckboxes = document.querySelectorAll('input[name="district"]');
+        allCheckboxes.forEach(cb => cb.checked = false);
+        updateDistrictFilter(true);
+    }
+
+    function toggleFullTable() {
+        const extraRows = document.querySelectorAll(".extra-row");
+        const btn = document.getElementById("toggleBtn");
+
+        if (!extraRows.length) {
+            return;
+        }
+
+        const isHidden = extraRows[0].style.display === "" || extraRows[0].style.display === "none";
+
+        extraRows.forEach(row => {
+            row.style.display = isHidden ? "table-row" : "none";
+        });
+
+        btn.innerText = isHidden ? "Hide Full Ranking" : "Show Full Ranking";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+    
+        const labels = {{ chart_labels|safe }};
+        const values = {{ chart_values|safe }};
+    
+        const ctx = document.getElementById("top10Chart");
+        if (!ctx) {
+            return;
+        }
+
+        const minCanvasWidth = Math.max(labels.length * 140, 1600);
+        ctx.width = minCanvasWidth;
+        ctx.height = 460;
+    
+        new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Next Year Target",
+                    data: values,
+                    backgroundColor: "rgba(54, 162, 235, 0.7)",
+                    maxBarThickness: 90,
+                    categoryPercentage: 0.9,
+                    barPercentage: 0.95
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    
+    });
+    </script>
+    
+{% endblock %}

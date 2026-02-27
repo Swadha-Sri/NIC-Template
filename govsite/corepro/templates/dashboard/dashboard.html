@@ -1,21 +1,38 @@
-{% extends 'base/public_base.html' %}
+{% extends 'base/dashboard_base.html' %}
+{% load static %}
 {% block title %}Solar Analytics | Dashboard{% endblock %}
+{% block css %}
+<style>
+   .chart-container {
+      position: relative;
+      height: 350px;
+      width: 100%;
+   }
+   .chart-container canvas {
+      display: block;
+   }
+   #solarInstalledShareChartContainer {
+      height: 300px !important;
+      width: 300px !important;
+      margin: 0 auto;
+   }
+   .extra-row {
+      display: none;
+   }
+</style>
+{% endblock %}
 {% block content %}
             <!-- Content Row/ Breadcrumb -->
-            <div class="my-5" id="b-homedb">
+            <div class="my-5" id="b-homedb"> 
                <div class="container">
-                  <h4 class="text-center mb-3 b-latest-data">Solar Panel Analytics</h4>
-                  <div class="pl-4 text-end" style="font-size: 24px">
-                     <span class="mr-2" id="one-item-row" style="cursor: pointer;">
-                     <i class="fas fa-bars"></i>
-                     </span>
-                     <span class="mr-2" id="two-item-row" style="cursor: pointer;">
-                     <i class="fas fa-th-large"></i>
-                     </span>
-                     <span class="mr-2" id="three-item-row" style="cursor: pointer;">
-                     <i class="fas fa-th"></i>
-                     </span>
+                  <h1 class="text-center mb-3">Data Analysis Dashboard of PM KUSUM Yojna for Solar Pump Subsity of Uttar Pradesh</h1>
+                  {% if messages %}
+                  <div class="mb-3">
+                     {% for message in messages %}
+                     <div class="alert alert-{{ message.tags|default:'info' }}" role="alert">{{ message }}</div>
+                     {% endfor %}
                   </div>
+                  {% endif %}
                   <div class="">
                      <div class="row text-center pl-4" id="sortable-cards">
                         <div class="col-lg-6 col-sm-12 p-3 b-customize">
@@ -74,134 +91,89 @@
                   </div>
                </div>
             </div>
-            <div class="row my-5 mx-sm-5">
-               <div class="col-md-6">
-                  <h4 class="text-center">Installed by Year</h4>
-                  <canvas id="solarYearInstalledChart" width="400" height="400"></canvas>
-               </div>
-               <div class="col-md-6">
-                  <h4 class="text-center">Overall Installed vs Remaining Target</h4>
-                  <canvas id="solarInstalledShareChart" width="400" height="400"></canvas>
-               </div>
+            <h4 class="text-center mb-3 b-latest-data">Upload Excel Data for Solar Pump</h4>
+            <div class="text-center mb-4">
+               <a href="{% url 'download_solar_pump_data' %}" class="btn btn-primary"><i class="fas fa-download me-2"></i>Download Format File</a>
             </div>
-            <div class="row my-5 mx-sm-5">
-               <div class="col-md-6">
-                  <h4 class="text-center">Top 10 Districts by Installed</h4>
-                  <canvas id="solarTopInstalledChart" width="400" height="400"></canvas>
-               </div>
-               <div class="col-md-6">
-                  <h4 class="text-center">Top 10: Target vs Installed</h4>
-                  <canvas id="solarTargetVsInstalledChart" width="400" height="400"></canvas>
+            <p class="text-center">The data should be district wise and according to the given format.</p>
+            <div class="container mb-4">
+               <form id="solarUploadForm" method="post" enctype="multipart/form-data" class="row g-2 justify-content-center align-items-center">
+                  {% csrf_token %}
+                  <input type="hidden" name="confirm_upload" id="confirmUploadInput" value="no">
+                  <div class="col-md-6 col-sm-12">
+                     <input type="file" class="form-control" name="solar_data_file" accept=".xlsx" required>
+                  </div>
+                  <div class="col-md-auto col-sm-12">
+                     <button type="submit" class="btn btn-success w-100">
+                        <i class="fas fa-upload me-2"></i>Upload File
+                     </button>
+                  </div>
+               </form>
+            </div>
+
+            <div class="container mb-5">
+               <div class="card">
+                  <div class="card-header fw-bold">Uploaded Files</div>
+                  <div class="table-responsive">
+                     <table class="table mb-0 align-middle">
+                        <thead>
+                           <tr>
+                              <th>File Name</th>
+                              <th>Year</th>
+                              <th>Uploaded By</th>
+                              <th>Uploaded At</th>
+                              <th class="text-end">Actions</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           {% for uploaded_file in uploaded_files %}
+                           <tr>
+                              <td>{{ uploaded_file.original_filename }}</td>
+                              <td>{{ uploaded_file.year_label }}</td>
+                              <td>{{ uploaded_file.uploaded_by.username|default:'-' }}</td>
+                              <td>{{ uploaded_file.uploaded_at|date:"Y-m-d H:i" }}</td>
+                              <td class="text-end">
+                                 <a href="{% url 'view_uploaded_file_data' uploaded_file.id %}" class="btn btn-sm btn-outline-primary">View</a>
+                                 <a href="{% url 'download_uploaded_file' uploaded_file.id %}" class="btn btn-sm btn-outline-success">Download</a>
+                                 <form method="post" action="{% url 'delete_uploaded_file' uploaded_file.id %}" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this file?');">Delete</button>
+                                 </form>
+                              </td>
+                           </tr>
+                           {% empty %}
+                           <tr>
+                              <td colspan="5" class="text-center text-muted py-3">No files uploaded yet.</td>
+                           </tr>
+                           {% endfor %}
+                        </tbody>
+                     </table>
+                  </div>
                </div>
             </div>
          </div>
-         <!-- /#page-content-wrapper -->
-      </div>
       {% endblock %}
 
 {% block js %}
 <script>
    document.addEventListener("DOMContentLoaded", function () {
-      const yearLabels = {{ solar_year_labels|safe }};
-      const yearInstalled = {{ solar_year_installed|safe }};
-      const topLabels = {{ solar_top_labels|safe }};
-      const topInstalled = {{ solar_top_installed|safe }};
-      const topTarget = {{ solar_top_target|safe }};
+      const uploadForm = document.getElementById("solarUploadForm");
+      const confirmUploadInput = document.getElementById("confirmUploadInput");
 
-      const solarYearInstalledChart = document.getElementById("solarYearInstalledChart");
-      if (solarYearInstalledChart) {
-         new Chart(solarYearInstalledChart, {
-            type: "line",
-            data: {
-               labels: yearLabels,
-               datasets: [
-                  {
-                     label: "Installed",
-                     data: yearInstalled,
-                     borderColor: "rgba(54, 162, 235, 1)",
-                     backgroundColor: "rgba(54, 162, 235, 0.2)",
-                     borderWidth: 2,
-                     tension: 0.4,
-                     fill: true,
-                  },
-               ],
-            },
-            options: {
-               responsive: true,
-               scales: {
-                  y: { beginAtZero: true },
-               },
-            },
-         });
+      if (!uploadForm || !confirmUploadInput) {
+         return;
       }
 
-      const solarInstalledShareChart = document.getElementById("solarInstalledShareChart");
-      if (solarInstalledShareChart) {
-         new Chart(solarInstalledShareChart, {
-            type: "doughnut",
-            data: {
-               labels: ["Installed", "Remaining Target"],
-               datasets: [
-                  {
-                     data: [{{ solar_total_installed_value }}, {{ solar_remaining_target }}],
-                     backgroundColor: ["rgba(75, 192, 192, 1)", "rgba(255, 99, 132, 1)"],
-                  },
-               ],
-            },
-            options: { responsive: true },
-         });
-      }
+      uploadForm.addEventListener("submit", function (event) {
+         const isConfirmed = window.confirm("Are you sure that you want to upload this file?");
+         if (!isConfirmed) {
+            confirmUploadInput.value = "no";
+            event.preventDefault();
+            return;
+         }
 
-      const solarTopInstalledChart = document.getElementById("solarTopInstalledChart");
-      if (solarTopInstalledChart) {
-         new Chart(solarTopInstalledChart, {
-            type: "bar",
-            data: {
-               labels: topLabels,
-               datasets: [
-                  {
-                     label: "Installed",
-                     data: topInstalled,
-                     backgroundColor: "rgba(54, 162, 235, 0.7)",
-                  },
-               ],
-            },
-            options: {
-               responsive: true,
-               scales: {
-                  y: { beginAtZero: true },
-               },
-            },
-         });
-      }
-
-      const solarTargetVsInstalledChart = document.getElementById("solarTargetVsInstalledChart");
-      if (solarTargetVsInstalledChart) {
-         new Chart(solarTargetVsInstalledChart, {
-            type: "bar",
-            data: {
-               labels: topLabels,
-               datasets: [
-                  {
-                     label: "Target",
-                     data: topTarget,
-                     backgroundColor: "rgba(255, 159, 64, 0.7)",
-                  },
-                  {
-                     label: "Installed",
-                     data: topInstalled,
-                     backgroundColor: "rgba(75, 192, 192, 0.7)",
-                  },
-               ],
-            },
-            options: {
-               responsive: true,
-               scales: {
-                  y: { beginAtZero: true },
-               },
-            },
-         });
-      }
+         confirmUploadInput.value = "yes";
+      });
    });
 </script>
 {% endblock %}

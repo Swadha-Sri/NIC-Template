@@ -1,0 +1,233 @@
+{% extends 'base/dashboard_base.html' %}
+{% block title %}Correlation Analytics | Dashboard{% endblock %}
+
+{% block css %}
+<style>
+   .chart-container {
+      position: relative;
+      height: 360px;
+      width: 100%;
+   }
+   .year-filter {
+      position: relative;
+      display: inline-block;
+   }
+   .filter-dropdown-menu {
+      max-height: 280px;
+      overflow-y: auto;
+      min-width: 220px;
+   }
+   .result-card {
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      padding: 14px;
+      background: #f8f9fa;
+      height: 100%;
+   }
+   .result-key {
+      font-weight: 600;
+   }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+   <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="text-center flex-grow-1 b-latest-data" style="margin: 0;">District-Level Correlation Analysis</h4>
+      <div class="d-flex align-items-center gap-2">
+         <div class="year-filter">
+            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="yearFilterBtn" data-bs-toggle="dropdown" aria-expanded="false">
+               Years <span class="badge bg-primary ms-2">{{ selected_years|length }}</span>
+            </button>
+            <ul class="dropdown-menu filter-dropdown-menu" aria-labelledby="yearFilterBtn">
+               {% for year in all_years %}
+               <li>
+                  <label class="dropdown-item mb-0">
+                     <input type="checkbox" name="year" value="{{ year }}" {% if year in selected_years %}checked{% endif %} onchange="updateYearFilter()">
+                     {{ year }}
+                  </label>
+               </li>
+               {% endfor %}
+            </ul>
+         </div>
+         <button type="button" class="btn btn-outline-success btn-sm" onclick="printCorrelationPage()">Print Page</button>
+      </div>
+   </div>
+
+   <div class="alert alert-info py-2" role="alert">
+      Sample size: <strong>{{ district_count }}</strong> districts (one observation per district)
+   </div>
+
+   <div class="table-responsive mb-4">
+      <table class="table table-bordered table-striped">
+         <thead>
+            <tr>
+               <th>Relationship</th>
+               <th>Purpose</th>
+               <th>r (Pearson)</th>
+               <th>p-value</th>
+               <th>R² Value</th>
+               <th>Strength</th>
+               <th>Direction</th>
+               <th>Interpretation</th>
+            </tr>
+         </thead>
+         <tbody>
+            {% for row in correlation_results %}
+            <tr>
+               <td>{{ row.title }}</td>
+               <td>{{ row.purpose }}</td>
+               <td>{% if row.r is not None %}{{ row.r }}{% else %}-{% endif %}</td>
+               <td>{% if row.p_display %}{{ row.p_display }}{% elif row.p is not None %}{{ row.p }}{% else %}-{% endif %}</td>
+               <td>{% if row.r_squared is not None %}{{ row.r_squared }} ({{ row.r_squared_percent }}%){% else %}-{% endif %}</td>
+               <td>{{ row.strength }}</td>
+               <td>{{ row.direction }}</td>
+               <td>{{ row.interpretation }}</td>
+            </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+   </div>
+
+   <div class="row g-4">
+      <div class="col-md-6">
+         <div class="result-card">
+            <h6 class="mb-2">Booking vs Installed</h6>
+            <div class="chart-container">
+               <canvas id="corrChart1"></canvas>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6">
+         <div class="result-card">
+            <h6 class="mb-2">Rejected vs Installed</h6>
+            <div class="chart-container">
+               <canvas id="corrChart2"></canvas>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6">
+         <div class="result-card">
+            <h6 class="mb-2">Target vs Installed</h6>
+            <div class="chart-container">
+               <canvas id="corrChart3"></canvas>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+   function printCorrelationPage() {
+      window.print();
+   }
+
+   function updateYearFilter() {
+      const checkboxes = document.querySelectorAll('input[name="year"]:checked');
+      const years = Array.from(checkboxes).map(cb => cb.value);
+
+      if (years.length === 0) {
+         const allCheckboxes = document.querySelectorAll('input[name="year"]');
+         years.push(...Array.from(allCheckboxes).map(cb => cb.value));
+      }
+
+      const params = new URLSearchParams();
+      years.forEach(year => params.append('year', year));
+      window.location.href = `?${params.toString()}`;
+   }
+
+   function formatNumeric(value) {
+      const num = Number(value);
+      return Number.isFinite(num) ? num.toLocaleString() : '-';
+   }
+
+   function createCorrelationChart(canvasId, row) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) {
+         return;
+      }
+
+      const points = (row.points || []).map(p => ({
+         x: Number(p.x),
+         y: Number(p.y),
+         district: p.district,
+         distcode: p.distcode
+      }));
+
+      const linePoints = (row.regression_line || []).map(p => ({
+         x: Number(p.x),
+         y: Number(p.y)
+      }));
+
+      new Chart(canvas, {
+         type: 'scatter',
+         data: {
+            datasets: [
+               {
+                  label: `${row.title} Points`,
+                  data: points,
+                  backgroundColor: 'rgba(54, 162, 235, 0.75)',
+                  pointRadius: 4
+               },
+               {
+                  type: 'line',
+                  label: (row.r !== null && row.p !== null && row.r_squared !== null) 
+                     ? `Regression: r=${row.r}, R²=${row.r_squared}`
+                     : 'Regression Line',
+                  data: linePoints,
+                  borderColor: 'rgba(255, 99, 132, 1)',
+                  borderWidth: 2,
+                  fill: false,
+                  pointRadius: 0,
+                  tension: 0
+               }
+            ]
+         },
+         options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+               x: {
+                  title: {
+                     display: true,
+                     text: row.x_key
+                  }
+               },
+               y: {
+                  title: {
+                     display: true,
+                     text: row.y_key
+                  }
+               }
+            },
+            plugins: {
+               tooltip: {
+                  callbacks: {
+                     label: function(context) {
+                        if (context.dataset.type === 'line') {
+                           return `Regression: y=${formatNumeric(context.parsed.y)}`;
+                        }
+                        const raw = context.raw || {};
+                        return `${raw.district || '-'} (${raw.distcode || '-'}) | x=${formatNumeric(raw.x)}, y=${formatNumeric(raw.y)}`;
+                     }
+                  }
+               }
+            }
+         }
+      });
+   }
+
+   document.addEventListener('DOMContentLoaded', function() {
+      const correlations = {{ correlation_results_json|safe }};
+      if (!Array.isArray(correlations) || correlations.length < 3) {
+         return;
+      }
+
+      createCorrelationChart('corrChart1', correlations[0]);
+      createCorrelationChart('corrChart2', correlations[1]);
+      createCorrelationChart('corrChart3', correlations[2]);
+   });
+</script>
+{% endblock %}
